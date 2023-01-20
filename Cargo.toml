@@ -1,0 +1,47 @@
+[package]
+name = "addr-spec"
+version = "0.5.5"
+edition = "2021"
+description = "A wicked fast UTF-8 email address parser and serializer."
+license = "MIT OR Apache-2.0"
+authors = ["Mathematic Inc"]
+documentation = "https://mathematic-inc.github.io/addr-spec-rs"
+repository = "https://github.com/mathematic-inc/addr-spec-rs"
+categories = ["parsing", "email"]
+keywords = ["address", "rfc5322", "rfc2822"]
+
+[features]
+default = ["normalization"]
+comments = ["white-spaces"]
+literals = []
+normalization = [
+  "dep:icu_collections",
+  "dep:icu_datagen",
+  "dep:icu_normalizer",
+  "dep:icu_provider",
+  "dep:litemap",
+  "dep:zerovec",
+]
+white-spaces = []
+
+[dependencies]
+serde = { version = "1.0", optional = true, features = ["derive"] }
+
+icu_collections = { version = "1.0.0", optional = true }
+icu_normalizer = { version = "1.0.0", optional = true }
+icu_provider = { version = "1.0.1", optional = true }
+litemap = { version = "0.6.0", optional = true }
+zerovec = { version = "0.9.1", optional = true }
+
+[dev-dependencies]
+regex = "1.7.1"
+
+[build-dependencies]
+bindgen = "0.63.0"
+cc = "1.0.78"
+rustc_version = "0.4.0"
+
+icu_datagen = { version = "1.0.2", optional = true }
+
+[profile.release]
+lto = true
