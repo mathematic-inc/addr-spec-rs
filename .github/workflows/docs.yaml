@@ -1,0 +1,54 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy docs
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+      - name: Install Rust
+        run: |
+          rustup set profile minimal
+          rustup toolchain update nightly
+          rustup default nightly
+      - name: Install rustdoc
+        run: rustup component add rust-docs
+      - name: Build docs
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          cargo doc --no-deps --locked --all-features
+          package_name=$(eval echo $(jq .packages[0].name <<< $(cargo metadata --format-version 1)))
+          cat <<EOF > target/doc/index.html
+          <!DOCTYPE html><html><head><script>
+              const repoName = '${REPO_NAME}';
+              const packageName = '${package_name}'.replaceAll(/-/g, '_');
+              window.location.replace(window.location.href.replace(repoName, \`\${repoName}/\${packageName}\`));
+          </script></head></html>
+          EOF
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: target/doc
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

@@ -1,0 +1,9 @@
+{
+  "release-type": "rust",
+  "packages": {
+    ".": {
+      "include-component-in-tag": false
+    }
+  },
+  "plugins": ["sentence-case"]
+}
