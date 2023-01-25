@@ -17,6 +17,10 @@ jobs:
         with:
           token: ${{ secrets.CHECK_RELEASE_TOKEN }}
           command: manifest
+          skip-labeling: true
+          pull-request-title-pattern: |
+            chore: release ${version}
+          pull-request-header: Here is a summary of this release.
   release:
     needs: check-release
     name: Release
