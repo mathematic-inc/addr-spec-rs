@@ -23,7 +23,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
-      - name: Install Rust
+      - name: Set up Cargo cache
+        uses: ./.github/actions/cargo-cache
+        with:
+          key: ${{ hashFiles('**/Cargo.lock') }}
+      - name: Install Rust (nightly)
         run: |
           rustup set profile minimal
           rustup toolchain update nightly
