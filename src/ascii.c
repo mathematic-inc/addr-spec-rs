@@ -1,4 +1,5 @@
 #include "ascii.h"
+
 #include <string.h>
 
 size_t ascii_escape(char esc_chr, const char *src, size_t len, char *dst,
