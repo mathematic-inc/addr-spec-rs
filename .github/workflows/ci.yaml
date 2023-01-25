@@ -17,31 +17,29 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
-      - name: Set up cache
-        uses: actions/cache@87396fe6b4d327202df854ff5b3e0a4ea3d77ac6
+      - name: Install C linter
+        run: sudo apt-get install clang-format
+      - name: Lint C code
+        run: clang-format --dry-run --Werror **/*.{h,c}
+      - name: Set up Cargo cache
+        uses: ./.github/actions/cargo-cache
         with:
-          path: |
-            ~/.cargo/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-cargo-
-      - name: Install Rust
+          key: ${{ hashFiles('**/Cargo.lock') }}
+      - name: Install Rust (nightly)
         run: |
           rustup set profile minimal
           rustup toolchain update nightly
           rustup default nightly
-      - name: Install Clippy
-        run: rustup component add clippy
-      - name: Lint code
-        run: cargo clippy --locked --all-features -- -D warnings
-      - name: Install rustfmt
-        run: rustup component add rustfmt --toolchain nightly
-      - name: Check format
-        run: cargo fmt --check
+      - name: Install Rust linters
+        run: rustup component add clippy rustfmt
+      - name: Lint Rust code
+        run: |
+          cargo fmt --check
+          cargo clippy --locked --all-features -- -D warnings
       - name: Install other tools
         run: |
-          cargo install --locked cargo-deny || true
-          cargo install --locked cargo-udeps || true
+          cargo install --locked cargo-deny
+          cargo install --locked cargo-udeps
       - name: Check everything else
         run: |
           cargo deny check
@@ -65,15 +63,11 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
-      - name: Set up cache
-        uses: actions/cache@87396fe6b4d327202df854ff5b3e0a4ea3d77ac6
+      - name: Set up Cargo cache
+        uses: ./.github/actions/cargo-cache
         with:
-          path: |
-            ~/.cargo/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-cargo-
-      - name: Install Rust
+          key: ${{ hashFiles('**/Cargo.lock') }}
+      - name: Install Rust (${{ matrix.channel }})
         run: |
           rustup set profile minimal
           rustup toolchain update ${{ matrix.channel }}
