@@ -33,3 +33,46 @@ mod tests {
         assert_eq!(escape('\\', "😄\"😄😄", [b'"']), "😄\\\"😄😄");
     }
 }
+
+#[cfg(all(test, feature = "nightly"))]
+mod benches {
+    extern crate test;
+
+    use super::*;
+
+    #[bench]
+    fn bench_no_escape_small(b: &mut test::Bencher) {
+        let s = "abc";
+        b.iter(|| escape('\\', s, [b'"']));
+    }
+
+    #[bench]
+    fn bench_no_escape_medium(b: &mut test::Bencher) {
+        let s = "abcdefghijklmnopqrstuvwxyz";
+        b.iter(|| escape('\\', s, [b'"']));
+    }
+
+    #[bench]
+    fn bench_no_escape_large(b: &mut test::Bencher) {
+        let s = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz";
+        b.iter(|| escape('\\', s, [b'"']));
+    }
+
+    #[bench]
+    fn bench_escape_small(b: &mut test::Bencher) {
+        let s = "a\\b";
+        b.iter(|| escape('\\', s, [b'"']));
+    }
+
+    #[bench]
+    fn bench_escape_medium(b: &mut test::Bencher) {
+        let s = "a\\bcdefgh\\ijklmnopqrst\\uvwxyz";
+        b.iter(|| escape('\\', s, [b'"']));
+    }
+
+    #[bench]
+    fn bench_escape_large(b: &mut test::Bencher) {
+        let s = "a\\bcdefgh\\ijklmnopqrst\\uvwxyzabcdefghijklmnopqrstuvwxyz\\abcdefghijklmnopqrstuvwxyz\\abcdefghijklmnopqrstuvwxyz";
+        b.iter(|| escape('\\', s, [b'"']));
+    }
+}
