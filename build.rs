@@ -25,20 +25,6 @@ fn generate_icu_data() {
 }
 
 fn main() {
-    println!("cargo:rerun-if-changed=src/ascii.h");
-    bindgen::Builder::default()
-        .header("src/ascii.h")
-        .blocklist_type("max_align_t")
-        .blocklist_type("wchar_t")
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
-        .generate()
-        .expect("Unable to generate bindings")
-        .write_to_file(PathBuf::from(env::var("OUT_DIR").unwrap()).join("ascii.rs"))
-        .expect("Couldn't write bindings!");
-
-    println!("cargo:rerun-if-changed=src/ascii.c");
-    cc::Build::new().file("src/ascii.c").compile("ascii");
-
     #[cfg(feature = "normalization")]
     generate_icu_data();
 
