@@ -393,9 +393,6 @@ impl<'de> Deserialize<'de> for AddrSpec {
 
 #[cfg(test)]
 mod tests {
-    #[cfg(feature = "nightly")]
-    extern crate test;
-
     use super::*;
 
     #[test]
@@ -618,8 +615,14 @@ mod tests {
         assert_eq!(addr_spec.domain(), "😄😄😄");
         assert_eq!(addr_spec.to_string(), "😄😄😄@[😄😄😄]");
     }
+}
 
-    #[cfg(feature = "nightly")]
+#[cfg(all(test, feature = "nightly"))]
+mod benches {
+    extern crate test;
+
+    use super::*;
+
     #[bench]
     fn bench_addr_spec_from_str(b: &mut test::Bencher) {
         b.iter(|| {
@@ -659,7 +662,6 @@ mod tests {
     // Sanity check that the regex is actually slower than the hand-written
     // parser. The regex below is a fairly simple one, but should still slower
     // than the hand-written parser.
-    #[cfg(feature = "nightly")]
     #[bench]
     fn bench_addr_spec_regexp(b: &mut test::Bencher) {
         use regex::Regex;
