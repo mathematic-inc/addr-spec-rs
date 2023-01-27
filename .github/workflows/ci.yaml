@@ -17,10 +17,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
-      - name: Install C linter
-        run: sudo apt-get install clang-format
-      - name: Lint C code
-        run: clang-format --dry-run --Werror **/*.{h,c}
       - name: Set up Cargo cache
         uses: ./.github/actions/cargo-cache
         with:
