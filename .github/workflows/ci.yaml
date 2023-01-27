@@ -70,7 +70,6 @@ jobs:
           rustup default ${{ matrix.channel }}
       - name: Run tests
         run: python3 tools/cargo-test-runner.py --locked --feature-sets default:white-spaces:literals:literals,comments
-
   success:
     name: Success
     needs: [checks, tests]

@@ -14,7 +14,14 @@ keywords = ["address", "rfc5322", "rfc2822"]
 default = ["normalization"]
 comments = ["white-spaces"]
 literals = []
-normalization = ["dep:icu_collections", "dep:icu_datagen", "dep:icu_normalizer", "dep:icu_provider", "dep:litemap", "dep:zerovec"]
+normalization = [
+    "dep:icu_collections",
+    "dep:icu_datagen",
+    "dep:icu_normalizer",
+    "dep:icu_provider",
+    "dep:litemap",
+    "dep:zerovec",
+]
 white-spaces = []
 
 [dependencies]
