@@ -17,7 +17,7 @@ use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 #[inline]
 fn quote(value: &str) -> String {
-    ascii::escape('\\', value, [b'"', b' ', b'\t'])
+    ascii::escape(value, [b'\\', b'"', b' ', b'\t'])
 }
 
 /// Address specification as defined in [RFC
