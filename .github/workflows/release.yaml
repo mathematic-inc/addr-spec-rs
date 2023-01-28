@@ -18,6 +18,7 @@ jobs:
           token: ${{ secrets.CHECK_RELEASE_TOKEN }}
           skip-labeling: true
           release-type: rust
+          release-as: "0.6.1"
           pull-request-title-pattern: "chore: release ${version}"
           pull-request-header: Here is a summary of this release.
           plugins: sentence-case
