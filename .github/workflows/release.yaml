@@ -17,6 +17,7 @@ jobs:
         with:
           token: ${{ secrets.CHECK_RELEASE_TOKEN }}
           command: manifest
+          skip-labeling: true
   release:
     needs: check-release
     name: Release

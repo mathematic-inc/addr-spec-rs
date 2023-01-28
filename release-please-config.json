@@ -1,6 +1,5 @@
 {
   "release-type": "rust",
-  "skip-labeling": true,
   "pull-request-title-pattern": "chore: release ${version}",
   "pull-request-header": "Here is a summary of this release.",
   "packages": {
