@@ -45,7 +45,4 @@ name = "generational-arena"
 allow = ["MPL-2.0"]
 
 [advisories]
-ignore = [
-    "RUSTSEC-2020-0056",
-    "RUSTSEC-2020-0071"
-]
+ignore = ["RUSTSEC-2020-0056", "RUSTSEC-2020-0071"]
