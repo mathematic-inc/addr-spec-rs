@@ -202,10 +202,9 @@ impl<'a> Parser<'a> {
     #[inline]
     fn parse_local_part(&mut self) -> Result<String, ParseError> {
         if !self.eat_chr('"') {
-            return Ok(unicode::normalize(self.parse_dot_atom(
-                "unquoted local part cannot be empty",
-                "empty label in local part",
-            )?));
+            return Ok(unicode::normalize(
+                self.parse_dot_atom("empty label in local part")?,
+            ));
         }
         Ok(unicode::normalize(self.parse_quoted_string(
             "invalid character in quoted local part",
@@ -216,24 +215,18 @@ impl<'a> Parser<'a> {
     #[inline]
     pub fn parse_dot_atom(
         &mut self,
-        empty_error_text: &'static str,
         empty_label_error_text: &'static str,
     ) -> Result<&str, ParseError> {
         let input = self.iterator.as_str();
         let size = input.find(is_not_atext).unwrap_or(input.len());
 
         let dot_atom = &input[..size];
-        if dot_atom.is_empty() {
-            return Err(self.error(empty_error_text, 0));
-        }
-        if dot_atom.starts_with('.') {
-            return Err(self.error(empty_label_error_text, 0));
-        }
-        if let Some(index) = dot_atom.find("..") {
-            return Err(self.error(empty_label_error_text, index as isize));
-        }
-        if dot_atom.ends_with('.') {
-            return Err(self.error(empty_label_error_text, (size - 1) as isize));
+        if let Some(offset) = dot_atom
+            .split('.')
+            .find(|label| label.is_empty())
+            .map(|label| label.as_ptr() as usize - dot_atom.as_ptr() as usize)
+        {
+            return Err(self.error(empty_label_error_text, offset as isize));
         }
 
         self.iterator = input[size..].chars();
@@ -285,10 +278,7 @@ impl<'a> Parser<'a> {
             return Ok((unicode::normalize(self.parse_domain_literal()?), true));
         }
         Ok((
-            unicode::normalize(self.parse_dot_atom(
-                "non-literal domain cannot be empty",
-                "empty label in domain",
-            )?),
+            unicode::normalize(self.parse_dot_atom("empty label in domain")?),
             false,
         ))
     }
@@ -419,7 +409,7 @@ mod tests {
         fn test_parse_empty_local_part() {
             assert_eq!(
                 Parser::new("").parse_local_part().unwrap_err(),
-                ParseError("unquoted local part cannot be empty", 0)
+                ParseError("empty label in local part", 0)
             )
         }
 
@@ -435,7 +425,7 @@ mod tests {
         fn test_parse_local_part_with_empty_label_in_middle() {
             assert_eq!(
                 Parser::new("te..st").parse_local_part().unwrap_err(),
-                ParseError("empty label in local part", 2)
+                ParseError("empty label in local part", 3)
             )
         }
 
@@ -443,7 +433,7 @@ mod tests {
         fn test_parse_local_part_with_empty_label_in_back() {
             assert_eq!(
                 Parser::new("test.").parse_local_part().unwrap_err(),
-                ParseError("empty label in local part", 4)
+                ParseError("empty label in local part", 5)
             )
         }
 
@@ -459,7 +449,7 @@ mod tests {
         fn test_parse_empty_domain() {
             assert_eq!(
                 Parser::new("").parse_domain().unwrap_err(),
-                ParseError("non-literal domain cannot be empty", 0)
+                ParseError("empty label in domain", 0)
             )
         }
 
@@ -475,7 +465,7 @@ mod tests {
         fn test_parse_domain_with_empty_label_in_middle() {
             assert_eq!(
                 Parser::new("te..st").parse_domain().unwrap_err(),
-                ParseError("empty label in domain", 2)
+                ParseError("empty label in domain", 3)
             )
         }
 
@@ -483,7 +473,7 @@ mod tests {
         fn test_parse_domain_with_empty_label_in_back() {
             assert_eq!(
                 Parser::new("test.").parse_domain().unwrap_err(),
-                ParseError("empty label in domain", 4)
+                ParseError("empty label in domain", 5)
             )
         }
     }
