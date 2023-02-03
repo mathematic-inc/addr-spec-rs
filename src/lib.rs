@@ -178,10 +178,7 @@ impl AddrSpec {
             // We use the parser here since parsing dot atoms is a pure
             // operation (i.e. independent of any features).
             let mut parser = Parser::new(domain);
-            parser.parse_dot_atom(
-                "non-literal domain cannot be empty",
-                "empty label in domain",
-            )?;
+            parser.parse_dot_atom("empty label in domain")?;
             parser.check_end("invalid character in domain")?;
         }
         Ok(Self {
@@ -266,11 +263,9 @@ impl AddrSpec {
     /// Returns whether the local part is quoted.
     #[inline]
     pub fn is_quoted(&self) -> bool {
-        self.local_part().is_empty()
-            || self.local_part().starts_with('.')
-            || self.local_part().ends_with('.')
-            || self.local_part().contains("..")
-            || self.local_part().contains(is_not_atext)
+        self.local_part()
+            .split('.')
+            .any(|s| s.is_empty() || s.contains(is_not_atext))
     }
 
     /// Returns whether the domain is literal.
