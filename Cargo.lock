@@ -6,6 +6,7 @@ version = 3
 name = "addr-spec"
 version = "0.6.1"
 dependencies = [
+ "email_address",
  "icu_collections",
  "icu_datagen",
  "icu_normalizer",
@@ -620,6 +621,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b4b5d23ed6b6948d68240aafa4ac98e568c9a020efd9d4201a6288bc3006e09"
 dependencies = [
  "stable_deref_trait",
+]
+
+[[package]]
+name = "email_address"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e2153bd83ebc09db15bcbdc3e2194d901804952e3dc96967e1cd3b0c5c32d112"
+dependencies = [
+ "serde",
 ]
 
 [[package]]
