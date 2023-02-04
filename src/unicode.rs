@@ -1,3 +1,5 @@
+#![allow(clippy::unnecessary_lazy_evaluations)]
+
 #[cfg(feature = "normalization")]
 mod icu {
     use icu_normalizer::ComposingNormalizer;
