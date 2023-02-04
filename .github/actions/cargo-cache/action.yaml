@@ -16,6 +16,4 @@ runs:
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
         key: ${{ runner.os }}-cargo-${{ inputs.key }}
-        restore-keys: |
-          ${{ runner.os }}-cargo-${{ inputs.key }}
-          ${{ runner.os }}-cargo-
+        restore-keys: ${{ runner.os }}-cargo-
