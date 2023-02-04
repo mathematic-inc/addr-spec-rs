@@ -63,8 +63,8 @@ support address normalization (e.g. `"te st"@example.com` is equivalent to
 
 In scenarios supported by `email_address` (no comments, no white-spaces, no
 UTF-8/address normalization), `email_address` slightly outperforms `addr_spec`
-by about 1.1x-1.2x which makes sense since `email_address` cannot distinguish
-equivalent addresses.
+by about 5% with all features off which makes sense since `email_address` cannot
+distinguish equivalent addresses.
 
 #### Migration
 
