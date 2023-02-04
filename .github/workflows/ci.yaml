@@ -77,7 +77,12 @@ jobs:
   success:
     name: Success
     needs: [checks, tests]
+    if: success() || failure()
     runs-on: ubuntu-latest
     steps:
       - name: Success
+        if: success()
         run: echo "Success!"
+      - name: Failure
+        if: failure()
+        run: echo "Failure!"; exit 1
