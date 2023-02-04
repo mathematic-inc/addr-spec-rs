@@ -22,9 +22,11 @@ jobs:
         with:
           key: ${{ hashFiles('**/Cargo.lock') }}
       - name: Install Rust (nightly)
-        run: |
-          rustup set profile minimal
-          rustup toolchain update nightly
-          rustup default nightly
+        uses: actions-rs/toolchain@88dc2356392166efad76775c878094f4e83ff746
+        with:
+          profile: minimal
+          toolchain: nightly
+          default: true
+          override: true
       - name: Run benchmark
         run: cargo bench --locked --no-default-features ${{ toJSON(matrix.feature-sets) != '[]' && format('--features {0}', join(matrix.feature-sets, ',')) || '' }}

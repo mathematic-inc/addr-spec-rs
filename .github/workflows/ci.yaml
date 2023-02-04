@@ -22,10 +22,12 @@ jobs:
         with:
           key: ${{ hashFiles('**/Cargo.lock') }}
       - name: Install Rust (nightly)
-        run: |
-          rustup set profile minimal
-          rustup toolchain update nightly
-          rustup default nightly
+        uses: actions-rs/toolchain@88dc2356392166efad76775c878094f4e83ff746
+        with:
+          profile: minimal
+          toolchain: nightly
+          default: true
+          override: true
       - name: Install Rust linters
         run: rustup component add clippy rustfmt
       - name: Lint Rust code
@@ -64,10 +66,12 @@ jobs:
         with:
           key: ${{ hashFiles('**/Cargo.lock') }}
       - name: Install Rust (${{ matrix.channel }})
-        run: |
-          rustup set profile minimal
-          rustup toolchain update ${{ matrix.channel }}
-          rustup default ${{ matrix.channel }}
+        uses: actions-rs/toolchain@88dc2356392166efad76775c878094f4e83ff746
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.channel }}
+          default: true
+          override: true
       - name: Run tests
         run: python3 tools/cargo-test-runner.py --locked --feature-sets default:white-spaces:literals:literals,comments
   success:
