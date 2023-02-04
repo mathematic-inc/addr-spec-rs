@@ -32,6 +32,7 @@ litemap = { version = "0.6.0", optional = true }
 zerovec = { version = "0.9.1", optional = true }
 
 serde = { version = "1.0", optional = true, features = ["derive"] }
+email_address = { version = "0.2.4", optional = true }
 
 memchr = "2.5.0"
 
