@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.6.1...v0.7.0) (2023-02-04)
+
+
+### Features
+
+* Support for `email_address` ([#30](https://github.com/mathematic-inc/addr-spec-rs/issues/30)) ([fb075d5](https://github.com/mathematic-inc/addr-spec-rs/commit/fb075d5ffdcb9b28457cf20a7d881451eff4c7cd))
+
+
+### Performance Improvements
+
+* Simplify dot-atom logic ([#28](https://github.com/mathematic-inc/addr-spec-rs/issues/28)) ([f18db35](https://github.com/mathematic-inc/addr-spec-rs/commit/f18db358c9a0db006e91ac324a2d989f845aacb8))
+
 ## [0.6.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.6.0...v0.6.1) (2023-01-28)
 
 
