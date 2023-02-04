@@ -12,8 +12,6 @@ use std::{
 
 pub use parser::ParseError;
 use parser::{is_ascii_control_and_not_htab, is_not_atext, is_not_dtext, Parser};
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
 #[inline]
 fn quote(value: &str) -> String {
@@ -363,6 +361,9 @@ impl FromStr for AddrSpec {
 }
 
 #[cfg(feature = "serde")]
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
+
+#[cfg(feature = "serde")]
 impl Serialize for AddrSpec {
     #[inline]
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -383,6 +384,25 @@ impl<'de> Deserialize<'de> for AddrSpec {
         String::deserialize(deserializer)?
             .parse()
             .map_err(serde::de::Error::custom)
+    }
+}
+
+#[cfg(feature = "email_address")]
+use email_address::EmailAddress;
+
+#[cfg(feature = "email_address")]
+impl Into<AddrSpec> for EmailAddress {
+    #[inline]
+    fn into(self) -> AddrSpec {
+        AddrSpec::from_str(self.as_str()).unwrap()
+    }
+}
+
+#[cfg(feature = "email_address")]
+impl Into<EmailAddress> for AddrSpec {
+    #[inline]
+    fn into(self) -> EmailAddress {
+        EmailAddress::new_unchecked(self.to_string())
     }
 }
 
@@ -618,40 +638,99 @@ mod benches {
 
     use super::*;
 
-    #[bench]
-    fn bench_addr_spec_from_str(b: &mut test::Bencher) {
-        b.iter(|| {
-            assert_eq!(
-                AddrSpec::from_str("test@example.com")
-                    .unwrap()
-                    .to_string()
-                    .as_str(),
-                "test@example.com"
-            );
-            assert_eq!(
-                AddrSpec::from_str("\"test\"@example.com")
-                    .unwrap()
-                    .to_string()
-                    .as_str(),
-                "test@example.com"
-            );
-            #[cfg(feature = "literals")]
-            assert_eq!(
-                AddrSpec::from_str("test@[example.com]")
-                    .unwrap()
-                    .to_string()
-                    .as_str(),
-                "test@[example.com]"
-            );
-            #[cfg(feature = "literals")]
-            assert_eq!(
-                AddrSpec::from_str("\"test\"@[example.com]")
-                    .unwrap()
-                    .to_string()
-                    .as_str(),
-                "test@[example.com]"
-            );
-        });
+    mod addr_spec {
+        use super::*;
+
+        #[bench]
+        fn bench_trivial(b: &mut test::Bencher) {
+            b.iter(|| {
+                let address = AddrSpec::from_str("test@example.com").unwrap();
+                assert_eq!(address.local_part(), "test");
+                assert_eq!(address.domain(), "example.com");
+                assert_eq!(address.to_string().as_str(), "test@example.com");
+            });
+        }
+
+        #[bench]
+        fn bench_quoted_local_part(b: &mut test::Bencher) {
+            b.iter(|| {
+                let address = AddrSpec::from_str("\"test\"@example.com").unwrap();
+                assert_eq!(address.local_part(), "test");
+                assert_eq!(address.domain(), "example.com");
+                assert_eq!(address.to_string().as_str(), "test@example.com");
+            });
+        }
+
+        #[cfg(feature = "literals")]
+        #[bench]
+        fn bench_literal_domain(b: &mut test::Bencher) {
+            b.iter(|| {
+                let address = AddrSpec::from_str("test@[example.com]").unwrap();
+                assert_eq!(address.local_part(), "test");
+                assert_eq!(address.domain(), "example.com");
+                assert_eq!(address.to_string().as_str(), "test@[example.com]");
+            });
+        }
+
+        #[cfg(feature = "literals")]
+        #[bench]
+        fn bench_full(b: &mut test::Bencher) {
+            b.iter(|| {
+                let address = AddrSpec::from_str("\"test\"@[example.com]").unwrap();
+                assert_eq!(address.local_part(), "test");
+                assert_eq!(address.domain(), "example.com");
+                assert_eq!(address.to_string().as_str(), "test@[example.com]");
+            });
+        }
+    }
+
+    #[cfg(feature = "email_address")]
+    mod email_address {
+        use super::*;
+
+        use ::email_address::EmailAddress;
+
+        #[bench]
+        fn bench_trivial(b: &mut test::Bencher) {
+            b.iter(|| {
+                let address = EmailAddress::from_str("test@example.com").unwrap();
+                assert_eq!(address.local_part(), "test");
+                assert_eq!(address.domain(), "example.com");
+                assert_eq!(address.to_string().as_str(), "test@example.com");
+            });
+        }
+
+        #[bench]
+        fn bench_quoted_local_part(b: &mut test::Bencher) {
+            b.iter(|| {
+                let address = EmailAddress::from_str("\"test\"@example.com").unwrap();
+                assert_eq!(address.local_part(), "\"test\"");
+                assert_eq!(address.domain(), "example.com");
+                assert_eq!(address.to_string().as_str(), "\"test\"@example.com");
+            });
+        }
+
+        #[cfg(feature = "literals")]
+        #[bench]
+        fn bench_literal_domain(b: &mut test::Bencher) {
+            b.iter(|| {
+                let address = EmailAddress::from_str("test@[example.com]").unwrap();
+                assert_eq!(address.local_part(), "test");
+                assert_eq!(address.domain(), "[example.com]");
+                assert_eq!(address.to_string().as_str(), "test@[example.com]");
+            });
+        }
+
+        #[cfg(feature = "literals")]
+        #[bench]
+        fn bench_full(b: &mut test::Bencher) {
+            b.iter(|| {
+                let address = EmailAddress::from_str("\"test\"@[example.com]").unwrap();
+                assert_eq!(address.local_part(), "\"test\"");
+                assert_eq!(address.domain(), "[example.com]");
+                assert_eq!(address.to_string().as_str(), "\"test\"@[example.com]");
+            });
+        }
     }
 
     // Sanity check that the regex is actually slower than the hand-written
