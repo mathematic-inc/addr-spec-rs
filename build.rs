@@ -13,7 +13,9 @@ fn generate_icu_data() {
             "normalizer/comp@1",
             "normalizer/nfdex@1",
         ]),
-        &SourceData::default().with_icuexport_latest().unwrap(),
+        &SourceData::default()
+            .with_icuexport_for_tag(SourceData::LATEST_TESTED_ICUEXPORT_TAG)
+            .unwrap(),
         vec![icu_datagen::Out::Module {
             mod_directory: PathBuf::from(env::var("OUT_DIR").unwrap()).join("addr_spec_icu"),
             pretty: false,
