@@ -391,18 +391,18 @@ impl<'de> Deserialize<'de> for AddrSpec {
 use email_address::EmailAddress;
 
 #[cfg(feature = "email_address")]
-impl Into<AddrSpec> for EmailAddress {
+impl From<EmailAddress> for AddrSpec {
     #[inline]
-    fn into(self) -> AddrSpec {
-        AddrSpec::from_str(self.as_str()).unwrap()
+    fn from(val: EmailAddress) -> Self {
+        AddrSpec::from_str(val.as_str()).unwrap()
     }
 }
 
 #[cfg(feature = "email_address")]
-impl Into<EmailAddress> for AddrSpec {
+impl From<AddrSpec> for EmailAddress {
     #[inline]
-    fn into(self) -> EmailAddress {
-        EmailAddress::new_unchecked(self.to_string())
+    fn from(val: AddrSpec) -> Self {
+        EmailAddress::new_unchecked(val.to_string())
     }
 }
 
