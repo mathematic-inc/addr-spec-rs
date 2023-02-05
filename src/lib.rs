@@ -13,9 +13,8 @@ use std::{
 pub use parser::ParseError;
 use parser::{is_ascii_control_and_not_htab, is_not_atext, is_not_dtext, Parser};
 
-#[inline]
 fn quote(value: &str) -> String {
-    ascii::escape(value, [b'\\', b'"', b' ', b'\t'])
+    ascii::escape!(value, b'\\', b'"' | b' ' | b'\t')
 }
 
 /// Address specification as defined in [RFC
