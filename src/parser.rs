@@ -15,16 +15,16 @@ pub const fn is_ascii_control_or_space(chr: char) -> bool {
 
 #[inline]
 pub const fn is_not_atext(chr: char) -> bool {
-    chr.is_ascii_control()
+    is_ascii_control_or_space(chr)
         || matches!(
             chr,
-            ' ' | '"' | '(' | ')' | ',' | ':' | '<' | '>' | '@' | '[' | ']' | '\\'
+            '"' | '(' | ')' | ',' | ':' | '<' | '>' | '@' | '[' | ']' | '\\'
         )
 }
 
 #[inline]
 pub const fn is_not_dtext(chr: char) -> bool {
-    chr.is_ascii_control() || matches!(chr, ' ' | '[' | ']' | '\\')
+    is_ascii_control_or_space(chr) || matches!(chr, '[' | ']' | '\\')
 }
 
 /// A error that can occur when parsing or creating an address specification.
