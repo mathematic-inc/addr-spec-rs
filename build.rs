@@ -1,10 +1,15 @@
-use std::{env, path::PathBuf};
-
 use rustc_version::{version_meta, Channel};
 
 #[cfg(feature = "normalization")]
 fn generate_icu_data() {
     use icu_datagen::SourceData;
+
+    use std::{env, path::PathBuf};
+
+    let mod_directory = PathBuf::from(env::var("OUT_DIR").unwrap()).join("addr_spec_icu");
+    if mod_directory.exists() {
+        return;
+    }
 
     icu_datagen::datagen(
         None,
@@ -17,7 +22,7 @@ fn generate_icu_data() {
             .with_icuexport_for_tag(SourceData::LATEST_TESTED_ICUEXPORT_TAG)
             .unwrap(),
         vec![icu_datagen::Out::Module {
-            mod_directory: PathBuf::from(env::var("OUT_DIR").unwrap()).join("addr_spec_icu"),
+            mod_directory,
             pretty: false,
             insert_feature_gates: false,
             use_separate_crates: true,
