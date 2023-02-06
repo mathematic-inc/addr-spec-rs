@@ -3,17 +3,14 @@ use std::{fmt, mem::ManuallyDrop, str::Chars};
 use super::unicode;
 use super::AddrSpec;
 
-#[inline]
 pub const fn is_ascii_control_and_not_htab(chr: char) -> bool {
     chr.is_ascii_control() && chr != '\t'
 }
 
-#[inline]
 pub const fn is_ascii_control_or_space(chr: char) -> bool {
     chr.is_ascii_control() || chr == ' '
 }
 
-#[inline]
 pub const fn is_not_atext(chr: char) -> bool {
     is_ascii_control_or_space(chr)
         || matches!(
@@ -22,7 +19,6 @@ pub const fn is_not_atext(chr: char) -> bool {
         )
 }
 
-#[inline]
 pub const fn is_not_dtext(chr: char) -> bool {
     is_ascii_control_or_space(chr) || matches!(chr, '[' | ']' | '\\')
 }
@@ -70,7 +66,6 @@ impl<'a> Parser<'a> {
         }
     }
 
-    #[inline]
     pub fn parse(mut self) -> Result<AddrSpec, ParseError> {
         #[cfg(feature = "white-spaces")]
         self.parse_cfws()?;
@@ -95,7 +90,6 @@ impl<'a> Parser<'a> {
     }
 
     #[cfg(feature = "white-spaces")]
-    #[inline]
     fn parse_cfws(&mut self) -> Result<(), ParseError> {
         self.skip_fws();
         #[cfg(feature = "comments")]
@@ -107,7 +101,6 @@ impl<'a> Parser<'a> {
     }
 
     #[cfg(feature = "white-spaces")]
-    #[inline]
     fn skip_fws(&mut self) {
         self.skip_ws();
         if !self.eat_str("\r\n") {
@@ -117,7 +110,6 @@ impl<'a> Parser<'a> {
     }
 
     #[cfg(feature = "white-spaces")]
-    #[inline]
     fn skip_ws(&mut self) {
         loop {
             if !self.eat_slice([' ', '\t']) {
@@ -127,7 +119,6 @@ impl<'a> Parser<'a> {
     }
 
     #[cfg(feature = "white-spaces")]
-    #[inline]
     fn eat_slice<const N: usize>(&mut self, pattern: [char; N]) -> bool {
         if self.iterator.as_str().starts_with(pattern) {
             self.iterator.next();
@@ -137,7 +128,6 @@ impl<'a> Parser<'a> {
     }
 
     #[cfg(feature = "white-spaces")]
-    #[inline]
     fn eat_str(&mut self, pattern: &str) -> bool {
         if let Some(input) = self.iterator.as_str().strip_prefix(pattern) {
             self.iterator = input.chars();
@@ -146,7 +136,6 @@ impl<'a> Parser<'a> {
         false
     }
 
-    #[inline]
     fn eat_chr(&mut self, pattern: char) -> bool {
         if self.iterator.as_str().starts_with(pattern) {
             self.iterator.next();
@@ -156,7 +145,6 @@ impl<'a> Parser<'a> {
     }
 
     #[cfg(feature = "comments")]
-    #[inline]
     fn parse_comment(&mut self) -> Result<(), ParseError> {
         #[cfg(feature = "white-spaces")]
         self.skip_fws();
@@ -190,7 +178,6 @@ impl<'a> Parser<'a> {
         Err(self.error("expected ')' for comment", 0))
     }
 
-    #[inline]
     fn parse_quoted_pair(&mut self) -> Result<char, ParseError> {
         match self.iterator.next() {
             Some(chr) if !is_ascii_control_and_not_htab(chr) => Ok(chr),
@@ -199,7 +186,6 @@ impl<'a> Parser<'a> {
         }
     }
 
-    #[inline]
     fn parse_local_part(&mut self) -> Result<String, ParseError> {
         if !self.eat_chr('"') {
             return Ok(unicode::normalize(
@@ -212,7 +198,6 @@ impl<'a> Parser<'a> {
         )?))
     }
 
-    #[inline]
     pub fn parse_dot_atom(
         &mut self,
         empty_label_error_text: &'static str,
@@ -233,7 +218,6 @@ impl<'a> Parser<'a> {
         Ok(dot_atom)
     }
 
-    #[inline]
     fn parse_quoted_string(
         &mut self,
         invalid_character_error_text: &'static str,
@@ -263,7 +247,6 @@ impl<'a> Parser<'a> {
         Err(self.error(expected_quote_error_text, 0))
     }
 
-    #[inline]
     fn skip_at(&mut self) -> Result<(), ParseError> {
         if self.eat_chr('@') {
             return Ok(());
@@ -271,7 +254,6 @@ impl<'a> Parser<'a> {
         Err(self.error("expected '@'", 1))
     }
 
-    #[inline]
     fn parse_domain(&mut self) -> Result<(String, bool), ParseError> {
         #[cfg(feature = "literals")]
         if self.eat_chr('[') {
@@ -284,7 +266,6 @@ impl<'a> Parser<'a> {
     }
 
     #[cfg(all(feature = "literals", not(feature = "white-spaces")))]
-    #[inline]
     fn parse_domain_literal(&mut self) -> Result<&str, ParseError> {
         let input = self.iterator.as_str();
         let size = input.find(is_not_dtext).unwrap_or(input.len());
@@ -298,7 +279,6 @@ impl<'a> Parser<'a> {
     }
 
     #[cfg(all(feature = "literals", feature = "white-spaces"))]
-    #[inline]
     fn parse_domain_literal(&mut self) -> Result<String, ParseError> {
         #[cfg(feature = "white-spaces")]
         self.skip_fws();
@@ -331,7 +311,6 @@ impl<'a> Parser<'a> {
         Err(self.error(message, 0))
     }
 
-    #[inline(always)]
     fn error(&self, message: &'static str, offset: isize) -> ParseError {
         ParseError(
             message,
@@ -349,7 +328,6 @@ pub struct FixedVec<T> {
 }
 
 impl<T> FixedVec<T> {
-    #[inline]
     pub unsafe fn new(cap: usize) -> Self {
         Self {
             ptr: unsafe { std::alloc::alloc(std::alloc::Layout::array::<T>(cap).unwrap()).cast() },
@@ -358,7 +336,6 @@ impl<T> FixedVec<T> {
         }
     }
 
-    #[inline]
     unsafe fn extend_unchecked(&mut self, slice: &[T]) {
         unsafe {
             std::ptr::copy_nonoverlapping(slice.as_ptr(), self.ptr.add(self.len), slice.len());
@@ -369,14 +346,12 @@ impl<T> FixedVec<T> {
 }
 
 impl FixedVec<u8> {
-    #[inline]
     unsafe fn extend_char_unchecked(&mut self, chr: char) {
         self.extend_unchecked(chr.encode_utf8(&mut [0; 4]).as_bytes())
     }
 }
 
 impl<T> Drop for FixedVec<T> {
-    #[inline]
     fn drop(&mut self) {
         unsafe {
             std::alloc::dealloc(
@@ -388,7 +363,6 @@ impl<T> Drop for FixedVec<T> {
 }
 
 impl From<FixedVec<u8>> for String {
-    #[inline]
     fn from(val: FixedVec<u8>) -> Self {
         let val = ManuallyDrop::new(val);
         unsafe { String::from_raw_parts(val.ptr, val.len, val.cap) }
