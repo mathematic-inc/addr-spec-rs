@@ -137,7 +137,6 @@ impl AddrSpec {
 
     /// Creates a new address specification. This will validate the local part
     /// and domain and perform NFC-normalization.
-    #[inline]
     pub fn new<LocalPart, Domain>(local_part: LocalPart, domain: Domain) -> Result<Self, ParseError>
     where
         LocalPart: AsRef<str>,
@@ -149,7 +148,6 @@ impl AddrSpec {
     /// Creates a new address specification with a literal domain. This will
     /// validate the local part and domain and perform NFC-normalization.
     #[cfg(feature = "literals")]
-    #[inline]
     pub fn with_literal<LocalPart, Domain>(
         local_part: LocalPart,
         domain: Domain,
@@ -161,7 +159,6 @@ impl AddrSpec {
         Self::new_impl(local_part.as_ref(), domain.as_ref(), true)
     }
 
-    #[inline]
     fn new_impl(local_part: &str, domain: &str, literal: bool) -> Result<Self, ParseError> {
         if let Some(index) = local_part.find(is_ascii_control_and_not_htab) {
             return Err(ParseError("invalid character in local part", index));
@@ -234,7 +231,6 @@ impl AddrSpec {
         Self::new_unchecked_impl(local_part.into(), domain.into(), true)
     }
 
-    #[inline]
     #[allow(unused_variables)]
     unsafe fn new_unchecked_impl(local_part: String, domain: String, literal: bool) -> Self {
         Self {
@@ -285,7 +281,6 @@ impl AddrSpec {
     /// This is useful if you need to transport the address specification over
     /// line-based protocols such as SMTP and need to ensure that the local part
     /// and domain fit on a single line or require folding white-spaces.
-    #[inline]
     pub fn into_serialized_parts(self) -> (String, String) {
         // Note literals will be optimized away by the compiler if the feature
         // is disabled.
@@ -306,7 +301,6 @@ impl AddrSpec {
 
 #[cfg(feature = "nightly")]
 impl ToString for AddrSpec {
-    #[inline]
     fn to_string(&self) -> String {
         // Note literals will be optimized away by the compiler if the feature
         // is disabled.
@@ -320,7 +314,6 @@ impl ToString for AddrSpec {
 }
 
 impl fmt::Display for AddrSpec {
-    #[inline]
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         if !self.is_quoted() {
             formatter.write_str(self.local_part())?;
