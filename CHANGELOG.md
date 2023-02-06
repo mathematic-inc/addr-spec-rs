@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.7.0...v0.7.1) (2023-02-06)
+
+
+### Bug Fixes
+
+* Check directory before generating ICU code ([49dee0d](https://github.com/mathematic-inc/addr-spec-rs/commit/49dee0d6f9b28a105983ac2f7250f3470be99683))
+
+
+### Performance Improvements
+
+* Implement ASCII escape using macros ([#35](https://github.com/mathematic-inc/addr-spec-rs/issues/35)) ([914c23b](https://github.com/mathematic-inc/addr-spec-rs/commit/914c23bc6987fca5519e83ed1424eeed8aa2d7ca))
+* Improve inlining ([#37](https://github.com/mathematic-inc/addr-spec-rs/issues/37)) ([c31d31f](https://github.com/mathematic-inc/addr-spec-rs/commit/c31d31f7d5545cf7072300c2a6deb573b0e4e835))
+* Use range for memcspn ([#36](https://github.com/mathematic-inc/addr-spec-rs/issues/36)) ([50e7512](https://github.com/mathematic-inc/addr-spec-rs/commit/50e751214cbf5f21a39517ae91df0ba60bcafedd))
+
 ## [0.7.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.6.1...v0.7.0) (2023-02-04)
 
 
