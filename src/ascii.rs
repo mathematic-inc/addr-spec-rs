@@ -1,16 +1,14 @@
 macro_rules! memcpsn {
     ($value:ident, $(|)? $( $pattern:pat_param )|+ $( if $guard: expr )? $(,)?) => {
         {
-            let mut i = 0;
-            loop {
-                if i == $value.len() {
-                    break None;
-                }
+            let mut result = None;
+            for i in 0..$value.len() {
                 if matches!($value[i], $( $pattern )|+ $( if $guard )?) {
-                    break Some(i);
+                    result = Some(i);
+                    break;
                 }
-                i += 1;
             }
+            result
         }
     };
 }
