@@ -14,7 +14,6 @@ mod icu {
 }
 
 #[cfg(feature = "normalization")]
-#[inline]
 pub fn normalize<S>(value: S) -> String
 where
     S: AsRef<str>,
@@ -23,7 +22,6 @@ where
 }
 
 #[cfg(not(feature = "normalization"))]
-#[inline]
 pub fn normalize<S>(value: S) -> String
 where
     S: Into<String>,
