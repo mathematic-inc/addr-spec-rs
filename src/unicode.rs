@@ -3,9 +3,8 @@ pub fn normalize<S>(value: S) -> String
 where
     S: AsRef<str>,
 {
-    use icu_normalizer::ComposingNormalizer;
-    const NORMALIZER: ComposingNormalizer = ComposingNormalizer::new_nfc();
-    NORMALIZER.normalize(value.as_ref())
+    use unicode_normalization::UnicodeNormalization;
+    value.as_ref().nfc().collect::<String>()
 }
 
 #[cfg(not(feature = "normalization"))]
