@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.7.1...v0.8.0) (2024-02-05)
+
+
+### Features
+
+* Use `unicode-normalization` ([#39](https://github.com/mathematic-inc/addr-spec-rs/issues/39)) ([1ae74f5](https://github.com/mathematic-inc/addr-spec-rs/commit/1ae74f57ff96403b92e60053e82945853188dab0))
+
 ## [0.7.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.7.0...v0.7.1) (2023-02-06)
 
 
