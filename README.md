@@ -3,7 +3,7 @@
 [![crates.io](https://img.shields.io/crates/v/addr-spec?style=flat-square)](https://crates.io/crates/addr-spec)
 [![license](https://img.shields.io/crates/l/addr-spec?style=flat-square)](https://github.com/mathematic-inc/addr-spec-rs)
 [![ci](https://img.shields.io/github/actions/workflow/status/mathematic-inc/addr-spec-rs/ci.yaml?label=ci&style=flat-square)](https://github.com/mathematic-inc/addr-spec-rs/actions/workflows/ci.yaml)
-[![docs](https://img.shields.io/github/actions/workflow/status/mathematic-inc/addr-spec-rs/docs.yaml?label=docs&style=flat-square)](https://github.com/mathematic-inc/addr-spec-rs/actions/workflows/docs.yaml)
+[![docs](https://img.shields.io/docsrs/addr_spec?style=flat-square)](https://docs.rs/addr_spec/latest/addr_spec/)
 
 A wicked fast UTF-8 email address parser and serializer. It provides
 
@@ -77,4 +77,3 @@ inverse](https://en.wikipedia.org/wiki/Inverse_function#Left_and_right_inverses)
 of `Into<EmailAddress>`, i.e. `AddrSpec -> EmailAddress -> AddrSpec` will always
 yield the same `AddrSpec`, but `EmailAddress -> AddrSpec -> EmailAddress` may
 not yield the same `EmailAddress`.
- 
