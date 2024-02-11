@@ -300,6 +300,7 @@ impl AddrSpec {
 }
 
 #[cfg(feature = "nightly")]
+#[allow(clippy::to_string_trait_impl)]
 impl ToString for AddrSpec {
     fn to_string(&self) -> String {
         // Note literals will be optimized away by the compiler if the feature
