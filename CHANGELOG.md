@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.0...v0.8.1) (2024-02-11)
+
+
+### Bug Fixes
+
+* Allow ToString impl ([#43](https://github.com/mathematic-inc/addr-spec-rs/issues/43)) ([75ba0e7](https://github.com/mathematic-inc/addr-spec-rs/commit/75ba0e7527b3934a1e81def5d9075b70f568e914))
+
 ## [0.8.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.7.1...v0.8.0) (2024-02-05)
 
 
