@@ -77,12 +77,9 @@ jobs:
   success:
     name: Success
     needs: [checks, tests]
-    if: success() || failure()
+    if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Failure
-        if: failure()
-        run: echo "Failure!"; exit 1
-      - name: Success
-        if: success()
-        run: echo "Success!"
+      - if: needs.checks.result != 'success' || needs.tests.result == 'success'
+        run: exit 1
+      - run: exit 0
