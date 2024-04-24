@@ -72,6 +72,8 @@ jobs:
         uses: taiki-e/install-action@e7e3978ba00920884c8a5790a28699b85397e972
         with:
           tool: cargo-llvm-cov@0.6.9, cargo-hack@0.6.28
+      - name: Create directories
+        run: mkdir -p target/llvm-cov/lcov
       - name: Generate code coverage
         run: |
           cargo hack --feature-powerset llvm-cov --no-report --branch --workspace
