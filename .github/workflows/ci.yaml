@@ -5,9 +5,11 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  merge_group:
+    branches: [main]
 
 concurrency:
-  group: ${{ github.head_ref || github.run_id }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -16,30 +18,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
-      - name: Set up Cargo cache
-        uses: ./.github/actions/cargo-cache
+        uses: actions/checkout@43045ae669be728bd34ed56fcd1a230c0dc4d8e2
+      - name: Set up Rust
+        run: rustup default nightly
+      - name: Install development tools
+        uses: taiki-e/install-action@e7e3978ba00920884c8a5790a28699b85397e972
         with:
-          key: ${{ hashFiles('**/Cargo.lock') }}
-      - name: Install Rust (nightly)
-        uses: actions-rs/toolchain@88dc2356392166efad76775c878094f4e83ff746
-        with:
-          profile: minimal
-          toolchain: nightly
-          default: true
-          override: true
+          tool: cargo-deny@0.14.21, cargo-udeps@0.1.47
       - name: Install Rust linters
         run: rustup component add clippy rustfmt
-      - name: Lint Rust code
+      - name: Run checks
         run: |
           cargo fmt --check
           cargo clippy --locked --all-features -- -D warnings
-      - name: Install other tools
-        run: |
-          cargo install --locked cargo-deny
-          cargo install --locked cargo-udeps
-      - name: Check everything else
-        run: |
           cargo deny check
           cargo udeps
   tests:
@@ -60,29 +51,44 @@ jobs:
           - nightly
     steps:
       - name: Check out repository
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
-      - name: Set up Cargo cache
-        uses: ./.github/actions/cargo-cache
+        uses: actions/checkout@43045ae669be728bd34ed56fcd1a230c0dc4d8e2
+      - name: Set up Rust
+        run: rustup default ${{ matrix.channel }}
+      - name: Install development tools
+        uses: taiki-e/install-action@e7e3978ba00920884c8a5790a28699b85397e972
         with:
-          key: ${{ hashFiles('**/Cargo.lock') }}
-      - name: Install Rust (${{ matrix.channel }})
-        uses: actions-rs/toolchain@88dc2356392166efad76775c878094f4e83ff746
-        with:
-          profile: minimal
-          toolchain: ${{ matrix.channel }}
-          default: true
-          override: true
+          tool: cargo-hack@0.6.28
       - name: Run tests
-        run: python3 tools/cargo-test-runner.py --locked --feature-sets default:white-spaces:literals:literals,comments
-  success:
-    name: Success
-    needs: [checks, tests]
-    if: success() || failure()
+        run: cargo hack --feature-powerset test
+  coverage:
+    name: Coverage
     runs-on: ubuntu-latest
     steps:
-      - name: Success
-        if: success()
-        run: echo "Success!"
-      - name: Failure
-        if: failure()
-        run: echo "Failure!"; exit 1
+      - name: Check out repository
+        uses: actions/checkout@43045ae669be728bd34ed56fcd1a230c0dc4d8e2
+      - name: Set up Rust
+        run: rustup default nightly
+      - name: Install development tools
+        uses: taiki-e/install-action@e7e3978ba00920884c8a5790a28699b85397e972
+        with:
+          tool: cargo-llvm-cov@0.6.9, cargo-hack@0.6.28
+      - name: Generate code coverage
+        run: |
+          cargo hack --feature-powerset llvm-cov --no-report --branch --workspace
+          cargo llvm-cov report --fail-under-lines 85 --lcov --output-path target/llvm-cov/lcov/${{ github.event.repository.name }}.info
+      - name: Upload code coverage
+        uses: romeovs/lcov-reporter-action@4cf015aa4afa87b78238301f1e3dc140ea0e1ec6
+        if: github.event_name == 'pull_request'
+        with:
+          lcov-file: target/llvm-cov/lcov/${{ github.event.repository.name }}.info
+          delete-old-comments: true
+  success:
+    name: Success
+    needs: [checks, tests, coverage]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check jobs
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
