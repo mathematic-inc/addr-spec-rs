@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.2](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.1...v0.8.2) (2024-04-24)
+
+
+### Features
+
+* Add release automation and funding info ([3fce71e](https://github.com/mathematic-inc/addr-spec-rs/commit/3fce71e56b75f4aef719fa57e2d51ede18de0ed2))
+
 ## [0.8.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.0...v0.8.1) (2024-02-11)
 
 
