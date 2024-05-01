@@ -18,13 +18,13 @@ normalization = ["dep:unicode-normalization"]
 white-spaces = []
 
 [dependencies]
-unicode-normalization = { version = "0.1", optional = true }
+unicode-normalization = { version = "0.1.23", optional = true }
 
-serde = { version = "1", optional = true, features = ["derive"] }
-email_address = { version = "0.2", optional = true }
+serde = { version = "1.0.199", optional = true, features = ["derive"] }
+email_address = { version = "0.2.4", optional = true }
 
 [dev-dependencies]
-regex = "1"
+regex = "1.10.4"
 
 [build-dependencies]
 rustc_version = "0.4"
