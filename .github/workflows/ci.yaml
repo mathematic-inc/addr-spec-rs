@@ -30,8 +30,8 @@ jobs:
       - name: Run checks
         run: |
           cargo fmt --check --all
-          cargo hack --feature-powerset check --locked --workspace
-          cargo hack --feature-powerset clippy --locked --workspace -- -D warnings
+          cargo hack --feature-powerset --skip nightly check --locked --workspace
+          cargo hack --feature-powerset --skip nightly clippy --locked --workspace -- -D warnings
           cargo deny check
           cargo udeps --locked --workspace
   tests:
@@ -60,7 +60,7 @@ jobs:
         with:
           tool: cargo-hack@0.6.28
       - name: Run tests
-        run: cargo hack --feature-powerset test --locked
+        run: cargo hack --feature-powerset --skip nightly test --locked
   coverage:
     name: Coverage
     runs-on: ubuntu-latest
@@ -77,7 +77,7 @@ jobs:
         run: mkdir -p target/llvm-cov/lcov
       - name: Generate code coverage
         run: |
-          cargo hack --feature-powerset llvm-cov --no-report --branch --locked
+          cargo hack --feature-powerset --skip nightly llvm-cov --no-report --branch --locked
           cargo llvm-cov report --fail-under-lines 85 --lcov --output-path target/llvm-cov/lcov/${{ github.event.repository.name }}.info
       - name: Upload code coverage
         uses: romeovs/lcov-reporter-action@4cf015aa4afa87b78238301f1e3dc140ea0e1ec6
