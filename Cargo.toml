@@ -16,6 +16,7 @@ comments = ["white-spaces"]
 literals = []
 normalization = ["dep:unicode-normalization"]
 white-spaces = []
+nightly = []
 
 [dependencies]
 unicode-normalization = { version = "0.1.23", optional = true }
