@@ -1,4 +1,4 @@
-use std::{fmt, mem::ManuallyDrop, str::Chars};
+use std::{error::Error, fmt, mem::ManuallyDrop, str::Chars};
 
 use super::unicode;
 use super::AddrSpec;
@@ -51,6 +51,8 @@ impl fmt::Display for ParseError {
         )
     }
 }
+
+impl Error for ParseError {}
 
 pub struct Parser<'a> {
     input: &'a str,
