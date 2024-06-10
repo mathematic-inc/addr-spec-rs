@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.8.3](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.2...v0.8.3) (2024-06-10)
+
+
+### Features
+
+* Impl Error for ParseError ([71dec77](https://github.com/mathematic-inc/addr-spec-rs/commit/71dec77a423887185b70a0892e13f22763ebeaf9))
+
+
+### Bug Fixes
+
+* **deps:** Update rust crate serde to v1.0.201 ([#78](https://github.com/mathematic-inc/addr-spec-rs/issues/78)) ([0e53357](https://github.com/mathematic-inc/addr-spec-rs/commit/0e533578aacb333b6f603ea9df166bdf66420ff4))
+* **deps:** Update rust crate serde to v1.0.202 ([#91](https://github.com/mathematic-inc/addr-spec-rs/issues/91)) ([2a3cef2](https://github.com/mathematic-inc/addr-spec-rs/commit/2a3cef2120fed5b0d22761a51f2e2dd4a2912bfd))
+* **deps:** Update rust crate serde to v1.0.203 ([#111](https://github.com/mathematic-inc/addr-spec-rs/issues/111)) ([4835819](https://github.com/mathematic-inc/addr-spec-rs/commit/483581997aa0c288c5e51ad25b25595472a9ee40))
+
 ## [0.8.2](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.1...v0.8.2) (2024-05-05)
 
 
