@@ -24,7 +24,7 @@ jobs:
       - name: Install development tools
         uses: taiki-e/install-action@331a600f1b10a3fed8dc56f925012bede91ae51f
         with:
-          tool: cargo-deny@0.14.24, cargo-udeps@0.1.48, cargo-hack@0.6.28
+          tool: cargo-deny@0.14.24, cargo-udeps@0.1.49, cargo-hack@0.6.28
       - name: Install Rust linters
         run: rustup component add clippy rustfmt
       - name: Run checks
