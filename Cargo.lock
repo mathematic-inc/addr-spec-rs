@@ -24,9 +24,9 @@ dependencies = [
 
 [[package]]
 name = "email_address"
-version = "0.2.5"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c1019fa28f600f5b581b7a603d515c3f1635da041ca211b5055804788673abfe"
+checksum = "6f959aaf90fdd3571647d05a27e550c79814397f7b299cdd8625308daffd99f3"
 dependencies = [
  "serde",
 ]
