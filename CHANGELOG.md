@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.4](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.3...v0.8.4) (2024-08-08)
+
+
+### Bug Fixes
+
+* **deps:** Update rust crate email_address to v0.2.5 ([#179](https://github.com/mathematic-inc/addr-spec-rs/issues/179)) ([be952e5](https://github.com/mathematic-inc/addr-spec-rs/commit/be952e5cdd5db5028520e9010ca7ccb82282da92))
+* **deps:** Update rust crate email_address to v0.2.6 ([#209](https://github.com/mathematic-inc/addr-spec-rs/issues/209)) ([041d440](https://github.com/mathematic-inc/addr-spec-rs/commit/041d440fb22e4bf84372bf878637b258b0b37fa9))
+* **deps:** Update rust crate email_address to v0.2.7 ([#210](https://github.com/mathematic-inc/addr-spec-rs/issues/210)) ([3ee5e1e](https://github.com/mathematic-inc/addr-spec-rs/commit/3ee5e1ef3b5672d666edaeb8f9186277b48777f1))
+* **deps:** Update rust crate email_address to v0.2.9 ([#229](https://github.com/mathematic-inc/addr-spec-rs/issues/229)) ([e5c2736](https://github.com/mathematic-inc/addr-spec-rs/commit/e5c27360b3eadf2571630152bfe0e60f9c2de89c))
+* **deps:** Update rust crate serde to v1.0.204 ([#186](https://github.com/mathematic-inc/addr-spec-rs/issues/186)) ([e698a9a](https://github.com/mathematic-inc/addr-spec-rs/commit/e698a9a5a6b3e293674d49cec615ed9213306521))
+* **deps:** Update rust crate serde to v1.0.205 ([#238](https://github.com/mathematic-inc/addr-spec-rs/issues/238)) ([ea9ff20](https://github.com/mathematic-inc/addr-spec-rs/commit/ea9ff20bce1fee800d655aeeea5613385722b57f))
+
 ## [0.8.3](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.2...v0.8.3) (2024-06-10)
 
 
