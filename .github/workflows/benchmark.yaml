@@ -16,7 +16,7 @@ jobs:
           - [literals, comments]
     steps:
       - name: Check out repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        uses: actions/checkout@3b9b8c884f6b4bb4d5be2779c26374abadae0871
       - name: Set up Cargo cache
         uses: ./.github/actions/cargo-cache
         with:
