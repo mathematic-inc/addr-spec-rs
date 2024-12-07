@@ -22,7 +22,7 @@ jobs:
       - name: Set up Rust
         run: rustup default nightly
       - name: Install development tools
-        uses: taiki-e/install-action@acf70b3a1ed953bccebc8c5d80cfdb16ec8ccc36
+        uses: taiki-e/install-action@8d4cdddb55fd042e711f0917ca2c7ea3ccc978fa
         with:
           tool: cargo-deny@0.16.3, cargo-udeps@0.1.53, cargo-hack@0.6.33
       - name: Install Rust linters
@@ -56,7 +56,7 @@ jobs:
       - name: Set up Rust
         run: rustup default ${{ matrix.channel }}
       - name: Install development tools
-        uses: taiki-e/install-action@acf70b3a1ed953bccebc8c5d80cfdb16ec8ccc36
+        uses: taiki-e/install-action@8d4cdddb55fd042e711f0917ca2c7ea3ccc978fa
         with:
           tool: cargo-hack@0.6.33
       - name: Run tests
@@ -70,7 +70,7 @@ jobs:
       - name: Set up Rust
         run: rustup default nightly
       - name: Install development tools
-        uses: taiki-e/install-action@acf70b3a1ed953bccebc8c5d80cfdb16ec8ccc36
+        uses: taiki-e/install-action@8d4cdddb55fd042e711f0917ca2c7ea3ccc978fa
         with:
           tool: cargo-llvm-cov@0.6.14, cargo-hack@0.6.33
       - name: Create directories
