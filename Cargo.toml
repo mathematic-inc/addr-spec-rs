@@ -21,7 +21,7 @@ nightly = []
 [dependencies]
 unicode-normalization = { version = "0.1.23", optional = true }
 
-serde = { version = "1.0.200", optional = true, features = ["derive"] }
+serde = { version = "1.0.217", optional = true, features = ["derive"] }
 email_address = { version = "0.2.4", optional = true }
 
 [dev-dependencies]
