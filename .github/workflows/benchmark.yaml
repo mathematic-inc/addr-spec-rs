@@ -16,13 +16,13 @@ jobs:
           - [literals, comments]
     steps:
       - name: Check out repository
-        uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
+        uses: actions/checkout@v4.2.2
       - name: Set up Cargo cache
         uses: ./.github/actions/cargo-cache
         with:
           key: ${{ hashFiles('**/Cargo.lock') }}
       - name: Install Rust (nightly)
-        uses: actions-rs/toolchain@88dc2356392166efad76775c878094f4e83ff746
+        uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
           toolchain: nightly
