@@ -1,5 +1,5 @@
 #![doc = include_str!("../README.md")]
-#![cfg_attr(feature = "nightly", feature(test, min_specialization))]
+#![cfg_attr(feature = "nightly", feature(test))]
 
 mod ascii;
 mod parser;
@@ -295,21 +295,6 @@ impl AddrSpec {
                 ["\"", &quote(self.local_part()), "\""].concat(),
                 ["[", &self.domain, "]"].concat(),
             ),
-        }
-    }
-}
-
-#[cfg(feature = "nightly")]
-#[allow(clippy::to_string_trait_impl)]
-impl ToString for AddrSpec {
-    fn to_string(&self) -> String {
-        // Note literals will be optimized away by the compiler if the feature
-        // is disabled.
-        match (self.is_quoted(), self.is_literal()) {
-            (false, false) => [self.local_part(), "@", self.domain()].concat(),
-            (true, false) => ["\"", &quote(self.local_part()), "\"@", self.domain()].concat(),
-            (false, true) => [self.local_part(), "@[", self.domain(), "]"].concat(),
-            (true, true) => ["\"", &quote(self.local_part()), "\"@[", self.domain(), "]"].concat(),
         }
     }
 }
