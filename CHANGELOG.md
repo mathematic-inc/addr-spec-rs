@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.5](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.4...v0.8.5) (2025-03-09)
+
+
+### Bug Fixes
+
+* **deps:** Update rust crate serde to v1.0.218 ([#513](https://github.com/mathematic-inc/addr-spec-rs/issues/513)) ([5277660](https://github.com/mathematic-inc/addr-spec-rs/commit/52776608f185615201be93324e5d7a33859b5d54))
+
 ## [0.8.4](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.3...v0.8.4) (2025-01-23)
 
 
