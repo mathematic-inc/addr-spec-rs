@@ -24,7 +24,7 @@ jobs:
       - name: Install development tools
         uses: taiki-e/install-action@v2.59.1
         with:
-          tool: cargo-deny@0.18.4, cargo-udeps@0.1.57, cargo-hack@0.6.37
+          tool: cargo-deny@0.18.4, cargo-udeps@0.1.57, cargo-hack@0.6.38
       - name: Install Rust linters
         run: rustup component add clippy rustfmt
       - name: Run checks
@@ -58,7 +58,7 @@ jobs:
       - name: Install development tools
         uses: taiki-e/install-action@v2.59.1
         with:
-          tool: cargo-hack@0.6.37
+          tool: cargo-hack@0.6.38
       - name: Run tests
         run: cargo hack --feature-powerset --skip nightly test --locked
   coverage:
@@ -72,7 +72,7 @@ jobs:
       - name: Install development tools
         uses: taiki-e/install-action@v2.59.1
         with:
-          tool: cargo-llvm-cov@0.6.18, cargo-hack@0.6.37
+          tool: cargo-llvm-cov@0.6.19, cargo-hack@0.6.38
       - name: Create directories
         run: mkdir -p target/llvm-cov/lcov
       - name: Generate code coverage
