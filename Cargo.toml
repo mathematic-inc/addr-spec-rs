@@ -3,12 +3,12 @@ name = "addr-spec"
 version = "0.8.4"
 edition = "2021"
 description = "A wicked fast UTF-8 email address parser and serializer."
-license = "MIT OR Apache-2.0"
+license = "Apache-2.0"
 authors = ["Mathematic Inc"]
 documentation = "https://mathematic-inc.github.io/addr-spec-rs"
 repository = "https://github.com/mathematic-inc/addr-spec-rs"
-categories = ["parsing", "email"]
-keywords = ["address", "rfc5322", "rfc2822"]
+categories = ["parsing", "text-processing"]
+keywords = ["email", "address", "parser", "rfc5322", "rfc2822"]
 
 [features]
 default = ["normalization"]
