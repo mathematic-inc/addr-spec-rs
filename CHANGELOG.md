@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.9.0...v0.9.1) (2026-03-11)
+
+
+### Bug Fixes
+
+* Add toolchain input to rust-toolchain action in release workflow ([#864](https://github.com/mathematic-inc/addr-spec-rs/issues/864)) ([8325fd8](https://github.com/mathematic-inc/addr-spec-rs/commit/8325fd8bf965a129b7b9c17fd2df18c16481b34f))
+
 ## [0.9.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.4...v0.9.0) (2026-03-11)
 
 
