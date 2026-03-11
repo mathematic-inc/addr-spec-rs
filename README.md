@@ -77,3 +77,5 @@ inverse](https://en.wikipedia.org/wiki/Inverse_function#Left_and_right_inverses)
 of `Into<EmailAddress>`, i.e. `AddrSpec -> EmailAddress -> AddrSpec` will always
 yield the same `AddrSpec`, but `EmailAddress -> AddrSpec -> EmailAddress` may
 not yield the same `EmailAddress`.
+
+> This project is free and open-source work by a 501(c)(3) non-profit. If you find it useful, please consider [donating](https://github.com/sponsors/mathematic-inc).

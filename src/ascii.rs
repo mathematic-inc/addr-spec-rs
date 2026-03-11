@@ -44,8 +44,6 @@ pub(crate) use escape;
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn test_escape() {
         assert_eq!(escape!("", b'\\', b'"'), "");
@@ -61,8 +59,6 @@ mod tests {
 #[cfg(all(test, feature = "nightly"))]
 mod benches {
     extern crate test;
-
-    use super::*;
 
     #[bench]
     fn bench_no_escape_small(b: &mut test::Bencher) {
