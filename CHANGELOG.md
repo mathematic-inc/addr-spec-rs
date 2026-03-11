@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.9.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.4...v0.9.0) (2026-03-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* overhaul CI/CD workflows, reorganize release configs, and relicense to Apache-2.0 ([#862](https://github.com/mathematic-inc/addr-spec-rs/issues/862))
+
+### Bug Fixes
+
+* **deps:** Update rust crate serde to v1.0.218 ([#513](https://github.com/mathematic-inc/addr-spec-rs/issues/513)) ([5277660](https://github.com/mathematic-inc/addr-spec-rs/commit/52776608f185615201be93324e5d7a33859b5d54))
+* **deps:** Update rust crate serde to v1.0.219 ([#539](https://github.com/mathematic-inc/addr-spec-rs/issues/539)) ([26bde79](https://github.com/mathematic-inc/addr-spec-rs/commit/26bde79185fe399615f0f0f766309bba6769e7a2))
+* **deps:** Update rust crate serde to v1.0.221 ([#677](https://github.com/mathematic-inc/addr-spec-rs/issues/677)) ([15c7083](https://github.com/mathematic-inc/addr-spec-rs/commit/15c708308a54bb6ef14964fed7241c8af212394b))
+* **deps:** Update rust crate serde to v1.0.223 ([#678](https://github.com/mathematic-inc/addr-spec-rs/issues/678)) ([8ce37ea](https://github.com/mathematic-inc/addr-spec-rs/commit/8ce37ea0a1418799d7067ae75bf343ddb2bfb952))
+* **deps:** Update rust crate serde to v1.0.224 ([#680](https://github.com/mathematic-inc/addr-spec-rs/issues/680)) ([5600f4e](https://github.com/mathematic-inc/addr-spec-rs/commit/5600f4e8abf4c51b7a941c066d14b07658f9a4f9))
+* **deps:** Update rust crate serde to v1.0.225 ([#682](https://github.com/mathematic-inc/addr-spec-rs/issues/682)) ([0455745](https://github.com/mathematic-inc/addr-spec-rs/commit/0455745c4c9e6767892c26c12a420c9f526d91e7))
+* **deps:** Update rust crate serde to v1.0.226 ([#689](https://github.com/mathematic-inc/addr-spec-rs/issues/689)) ([6b2eccf](https://github.com/mathematic-inc/addr-spec-rs/commit/6b2eccf3ba504bb5c2e1fdb0f5aec4bea9b80dcd))
+* Overhaul CI/CD workflows, reorganize release configs, and relicense to Apache-2.0 ([#862](https://github.com/mathematic-inc/addr-spec-rs/issues/862)) ([b6639af](https://github.com/mathematic-inc/addr-spec-rs/commit/b6639af0b9553e6e61938afc9af908948833e7ee))
+
 ## [0.8.4](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.3...v0.8.4) (2025-01-23)
 
 
