@@ -19,10 +19,13 @@ white-spaces = []
 nightly = []
 
 [dependencies]
-unicode-normalization = { version = "0.1.23", optional = true }
+unicode-normalization = { version = "0.1.23", optional = true, default-features = false }
 
-serde = { version = "1.0.217", optional = true, features = ["derive"] }
-email_address = { version = "0.2.4", optional = true }
+serde = { version = "1.0.217", optional = true, default-features = false, features = [
+  "alloc",
+  "derive",
+] }
+email_address = { version = "0.2.4", optional = true, default-features = false }
 
 [dev-dependencies]
 regex = "1.10.4"
