@@ -1,3 +1,5 @@
+use alloc::string::String;
+
 #[cfg(feature = "normalization")]
 pub fn normalize<S>(value: S) -> String
 where

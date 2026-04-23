@@ -20,7 +20,7 @@ macro_rules! escape {
         {
             let cap = $expression.len() << 1;
             unsafe {
-                let buffer = std::alloc::alloc(std::alloc::Layout::array::<u8>(cap).unwrap());
+                let buffer = ::alloc::alloc::alloc(::core::alloc::Layout::array::<u8>(cap).unwrap());
                 let mut src = $expression.as_bytes();
                 let mut dst = buffer;
                 while let Some(end) = $crate::ascii::memcpsn!(src, $escape_char | $( $pattern )|+ $( if $guard )?) {
@@ -34,7 +34,7 @@ macro_rules! escape {
                     dst.copy_from_nonoverlapping(src.as_ptr(), src.len());
                     dst = dst.add(src.len());
                 }
-                String::from_raw_parts(buffer, dst.offset_from(buffer) as usize, cap)
+                ::alloc::string::String::from_raw_parts(buffer, dst.offset_from(buffer) as usize, cap)
             }
         }
     };
