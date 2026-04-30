@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Write release notes with Claude
-        uses: anthropics/claude-code-action@6062f3709600659be5e47fcddf2cf76993c235c2 # v1
+        uses: anthropics/claude-code-action@ef50f123a3a9be95b60040d042717517407c7256 # v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: --allowedTools "Bash(git log:*),Bash(git describe:*),Read,Write"
@@ -47,7 +47,7 @@ jobs:
             Do NOT publish it yourself — a subsequent step will do that.
 
       - name: Publish release notes
-        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
         with:
           tag_name: ${{ inputs.tag }}
           body_path: release-notes.md
