@@ -1,11 +1,16 @@
 #![doc = include_str!("../README.md")]
 #![cfg_attr(feature = "nightly", feature(test))]
+#![no_std]
+
+extern crate alloc;
+extern crate core;
 
 mod ascii;
 mod parser;
 mod unicode;
 
-use std::{
+use alloc::string::{String, ToString};
+use core::{
     fmt::{self, Write},
     str::FromStr,
 };
