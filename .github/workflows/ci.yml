@@ -28,3 +28,7 @@ jobs:
         run: cargo clippy --all-targets -- -D warnings
       - name: Test
         run: cargo test
+      - name: Test no_std build
+        run: |
+          rustup target add thumbv6m-none-eabi
+          cargo build --verbose --release --target thumbv6m-none-eabi

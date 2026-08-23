@@ -1,4 +1,5 @@
-use std::{error::Error, fmt, mem::ManuallyDrop, str::Chars};
+use alloc::string::String;
+use core::{error::Error, fmt, mem::ManuallyDrop, str::Chars};
 
 use super::unicode;
 use super::AddrSpec;
@@ -332,7 +333,9 @@ pub struct FixedVec<T> {
 impl<T> FixedVec<T> {
     pub unsafe fn new(cap: usize) -> Self {
         Self {
-            ptr: unsafe { std::alloc::alloc(std::alloc::Layout::array::<T>(cap).unwrap()).cast() },
+            ptr: unsafe {
+                alloc::alloc::alloc(alloc::alloc::Layout::array::<T>(cap).unwrap()).cast()
+            },
             len: 0,
             cap,
         }
@@ -340,7 +343,7 @@ impl<T> FixedVec<T> {
 
     unsafe fn extend_unchecked(&mut self, slice: &[T]) {
         unsafe {
-            std::ptr::copy_nonoverlapping(slice.as_ptr(), self.ptr.add(self.len), slice.len());
+            core::ptr::copy_nonoverlapping(slice.as_ptr(), self.ptr.add(self.len), slice.len());
         }
         self.len += slice.len();
         debug_assert!(self.len <= self.cap);
@@ -356,9 +359,9 @@ impl FixedVec<u8> {
 impl<T> Drop for FixedVec<T> {
     fn drop(&mut self) {
         unsafe {
-            std::alloc::dealloc(
+            alloc::alloc::dealloc(
                 self.ptr.cast(),
-                std::alloc::Layout::array::<T>(self.cap).unwrap(),
+                alloc::alloc::Layout::array::<T>(self.cap).unwrap(),
             )
         }
     }
@@ -375,6 +378,7 @@ impl From<FixedVec<u8>> for String {
 mod tests {
     mod dot_atoms {
         use super::super::{ParseError, Parser};
+        use alloc::string::ToString;
 
         #[test]
         fn test_parse_local_part() {
@@ -457,6 +461,7 @@ mod tests {
     #[cfg(feature = "literals")]
     mod literals {
         use super::super::{ParseError, Parser};
+        use alloc::string::ToString;
 
         #[test]
         fn test_parse_literal_domain() {
