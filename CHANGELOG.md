@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.9.1...v0.10.0) (2026-08-23)
+
+
+### Features
+
+* Add `no_std` support ([#1012](https://github.com/mathematic-inc/addr-spec-rs/issues/1012)) ([7c403c5](https://github.com/mathematic-inc/addr-spec-rs/commit/7c403c5e6b359a8dc3d38740d8ec8a8285f70967))
+
 ## [0.9.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.9.0...v0.9.1) (2026-03-11)
 
 
