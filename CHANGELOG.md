@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.10.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.9.1...v0.10.0) (2026-08-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* overhaul CI/CD workflows, reorganize release configs, and relicense to Apache-2.0 ([#862](https://github.com/mathematic-inc/addr-spec-rs/issues/862))
+
+### Bug Fixes
+
+* Add toolchain input to rust-toolchain action in release workflow ([#864](https://github.com/mathematic-inc/addr-spec-rs/issues/864)) ([8fade3d](https://github.com/mathematic-inc/addr-spec-rs/commit/8fade3d4b6f1978b4348f62206a775c733ce3aa3))
+* **deps:** Update rust crate serde to v1.0.218 ([#513](https://github.com/mathematic-inc/addr-spec-rs/issues/513)) ([daf61a2](https://github.com/mathematic-inc/addr-spec-rs/commit/daf61a2cc16e1b1d6ac21a234535b9c80e3d3f06))
+* **deps:** Update rust crate serde to v1.0.219 ([#539](https://github.com/mathematic-inc/addr-spec-rs/issues/539)) ([fa0cb97](https://github.com/mathematic-inc/addr-spec-rs/commit/fa0cb9750e03ab1167083bcdb7e359733584cca7))
+* **deps:** Update rust crate serde to v1.0.221 ([#677](https://github.com/mathematic-inc/addr-spec-rs/issues/677)) ([ef9f41e](https://github.com/mathematic-inc/addr-spec-rs/commit/ef9f41e38c0788310f59b91302d0c384444f4cb7))
+* **deps:** Update rust crate serde to v1.0.223 ([#678](https://github.com/mathematic-inc/addr-spec-rs/issues/678)) ([8fc8167](https://github.com/mathematic-inc/addr-spec-rs/commit/8fc816759ae2d4af5c534d3f3e5eb6d9fe3c76b7))
+* **deps:** Update rust crate serde to v1.0.224 ([#680](https://github.com/mathematic-inc/addr-spec-rs/issues/680)) ([eca3c3f](https://github.com/mathematic-inc/addr-spec-rs/commit/eca3c3f0f116a3a70f825d29fa72cda3ca2a2c90))
+* **deps:** Update rust crate serde to v1.0.225 ([#682](https://github.com/mathematic-inc/addr-spec-rs/issues/682)) ([77c68e6](https://github.com/mathematic-inc/addr-spec-rs/commit/77c68e6ce806afdc77d39086dc32caf26b374252))
+* **deps:** Update rust crate serde to v1.0.226 ([#689](https://github.com/mathematic-inc/addr-spec-rs/issues/689)) ([951fe85](https://github.com/mathematic-inc/addr-spec-rs/commit/951fe85f71c8f61eb8c08f32a562cd7ae036a628))
+* Overhaul CI/CD workflows, reorganize release configs, and relicense to Apache-2.0 ([#862](https://github.com/mathematic-inc/addr-spec-rs/issues/862)) ([1de6dfe](https://github.com/mathematic-inc/addr-spec-rs/commit/1de6dfe483319d7d8a1c320a0c67b3551e013ef2))
+
 ## [0.9.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.9.0...v0.9.1) (2026-03-11)
 
 
