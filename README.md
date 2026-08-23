@@ -18,6 +18,7 @@ A wicked fast UTF-8 email address parser and serializer. It provides
   5322](https://www.rfc-editor.org/rfc/rfc5322#section-3.4.1) and [Section 3.2,
   RFC 6532](https://datatracker.ietf.org/doc/html/rfc6532#section-3.2) with
   position-accurate errors.
+- [`no_std`](https://docs.rust-embedded.org/book/intro/no-std.html) support
 
 ## Features
 
