@@ -8,30 +8,35 @@ authors = ["Mathematic Inc"]
 documentation = "https://mathematic-inc.github.io/addr-spec-rs"
 repository = "https://github.com/mathematic-inc/addr-spec-rs"
 categories = ["parsing", "text-processing"]
-keywords = ["email", "address", "parser", "rfc5322", "rfc2822"]
+keywords = ["address", "email", "parser", "rfc2822", "rfc5322"]
+
+[dependencies]
+unicode-normalization = { version = "0.1.25", default-features = false, optional = true }
+
+email_address = { version = "0.2.9", default-features = false, optional = true }
+serde = {
+  version = "1.0.229",
+  default-features = false,
+  features = [
+    "alloc",
+    "derive",
+  ],
+  optional = true
+}
+
+[dev-dependencies]
+regex = "1.13.1"
+
+[build-dependencies]
+rustc_version = "0.4"
 
 [features]
 default = ["normalization"]
 comments = ["white-spaces"]
 literals = []
+nightly = []
 normalization = ["dep:unicode-normalization"]
 white-spaces = []
-nightly = []
-
-[dependencies]
-unicode-normalization = { version = "0.1.23", optional = true, default-features = false }
-
-serde = { version = "1.0.217", optional = true, default-features = false, features = [
-  "alloc",
-  "derive",
-] }
-email_address = { version = "0.2.4", optional = true, default-features = false }
-
-[dev-dependencies]
-regex = "1.10.4"
-
-[build-dependencies]
-rustc_version = "0.4"
 
 [profile.release]
 lto = true

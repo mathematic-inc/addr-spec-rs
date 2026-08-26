@@ -2,13 +2,13 @@
 
 [![crates.io](https://img.shields.io/crates/v/addr-spec?style=flat-square)](https://crates.io/crates/addr-spec)
 [![license](https://img.shields.io/crates/l/addr-spec?style=flat-square)](https://github.com/mathematic-inc/addr-spec-rs)
-[![ci](https://img.shields.io/github/actions/workflow/status/mathematic-inc/addr-spec-rs/ci.yaml?label=ci&style=flat-square)](https://github.com/mathematic-inc/addr-spec-rs/actions/workflows/ci.yaml)
-[![docs](https://img.shields.io/docsrs/addr_spec?style=flat-square)](https://docs.rs/addr_spec/latest/addr_spec/)
+[![ci](https://img.shields.io/github/actions/workflow/status/mathematic-inc/addr-spec-rs/ci.yml?label=ci&style=flat-square)](https://github.com/mathematic-inc/addr-spec-rs/actions/workflows/ci.yml)
+[![docs](https://img.shields.io/docsrs/addr-spec?style=flat-square)](https://docs.rs/addr-spec/latest/addr_spec/)
 
 A wicked fast UTF-8 email address parser and serializer. It provides
 
 - unopinionated, _correct_ parsing of email addresses (defined as `addr-spec` in
-  [RFC 5322](https://www.rfc-editor.org/rfc/rfc5322)),
+  [RFC 5322](https://www.rfc-editor.org/rfc/rfc5322.html)),
 - extremely fast serialization and deserialization using low-level memory
   management,
 - guarantees on the uniqueness of an email address,
@@ -29,15 +29,15 @@ This crate supports the following features:
   [Caveats](#comments)) of comments.
 - `literals` - This allows parsing and serialization of literal domains.
 - `white-spaces` - This allows parsing (but not serialization; see
-  [Caveats](#folding-white-spaces)) of whitepaces.
+  [Caveats](#folding-whitespace)) of whitespace.
 
 By default, `normalization` is enabled.
 
 ## Caveats
 
-### Folding white spaces
+### Folding whitespace
 
-Serializing folding white spaces (abbr. FWS) is not supported since it is
+Serializing folding whitespace (abbr. FWS) is not supported since it is
 dependent on the transport mechanism. If you need to break the address along
 foldable boundaries, you can use `into_serialized_parts` which returns
 serialized versions of the local part and domain.
@@ -56,13 +56,13 @@ file an issue with your use-case.
 This crate provides a "newtype" `EmailAddress` which under the hood just
 validates and wraps an address string.
 
-It does not support white spaces, comments, and UTF-8 normalization, nor does it
+It does not support whitespace, comments, and UTF-8 normalization, nor does it
 support address normalization (e.g. `"te st"@example.com` is equivalent to
 `test@example.com`, but this cannot be distinguished with `email_address`).
 
 #### Benchmarks
 
-In scenarios supported by `email_address` (no comments, no white-spaces, no
+In scenarios supported by `email_address` (no comments, no whitespace, no
 UTF-8/address normalization), `email_address` slightly outperforms `addr_spec`
 by about 5% with all features off which makes sense since `email_address` cannot
 distinguish equivalent addresses.
@@ -73,7 +73,7 @@ It's highly recommended to use only `addr_spec` in production since `addr_spec`
 provides guarantees on uniqueness for storage and lookup as well as other
 special perks (position-based errors, SMTP-style `Display` writer, etc.). If
 this is not feasible, we provide `Into<EmailAddress>` and `Into<AddrSpec>` for
-those coming from `email_address`. Note that `Into<AddrSpec>` is a only a [right
+those coming from `email_address`. Note that `Into<AddrSpec>` is only a [right
 inverse](https://en.wikipedia.org/wiki/Inverse_function#Left_and_right_inverses)
 of `Into<EmailAddress>`, i.e. `AddrSpec -> EmailAddress -> AddrSpec` will always
 yield the same `AddrSpec`, but `EmailAddress -> AddrSpec -> EmailAddress` may
@@ -81,9 +81,10 @@ not yield the same `EmailAddress`.
 
 ## Contributing
 
-Start a [Discussion](../../discussions/new) before proposing a code change. A
-Mathematic maintainer will review the proposal there. If we decide to implement
-it, a maintainer or authorized maintenance agent will open the pull request.
+Start a [Discussion](https://github.com/mathematic-inc/addr-spec-rs/discussions/new)
+before proposing a code change. A Mathematic maintainer will review the proposal
+there. If we decide to implement it, a maintainer or authorized maintenance
+agent will open the pull request.
 When Mathematic implements a proposal, we will link the implementation pull
 request to the Discussion and credit the proposal's original author.
 
@@ -91,4 +92,6 @@ GitHub restricts pull request creation to Mathematic maintainers and repository
 collaborators with write, maintain, or admin access, plus authorized maintenance
 agents. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full process.
 
-> This project is free and open-source work by a 501(c)(3) non-profit. If you find it useful, please consider [donating](https://github.com/sponsors/mathematic-inc).
+> This project is free and open-source work by a 501(c)(3) non-profit. If you
+> find it useful, please consider
+> [donating](https://github.com/sponsors/mathematic-inc).
