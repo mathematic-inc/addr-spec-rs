@@ -12,6 +12,8 @@ reviewed, so we agree on changes before writing code.
 
 If we decide to implement it, a Mathematic maintainer or authorized maintenance
 agent will open the pull request.
+When Mathematic implements a proposal, we will link the implementation pull
+request to the Discussion and credit the proposal's original author.
 
 ## Pull request policy
 

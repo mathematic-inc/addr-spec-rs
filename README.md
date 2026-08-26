@@ -84,6 +84,8 @@ not yield the same `EmailAddress`.
 Start a [Discussion](../../discussions/new) before proposing a code change. A
 Mathematic maintainer will review the proposal there. If we decide to implement
 it, a maintainer or authorized maintenance agent will open the pull request.
+When Mathematic implements a proposal, we will link the implementation pull
+request to the Discussion and credit the proposal's original author.
 
 GitHub restricts pull request creation to Mathematic maintainers and repository
 collaborators with write, maintain, or admin access, plus authorized maintenance
