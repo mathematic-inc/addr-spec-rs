@@ -6,8 +6,8 @@ reviewed, so we agree on changes before writing code.
 
 ## Propose a change
 
-1. Start a [GitHub Discussion](../../discussions/new) describing the problem or
-   proposed change.
+1. Start a [GitHub Discussion](https://github.com/mathematic-inc/addr-spec-rs/discussions/new)
+   describing the problem or proposed change.
 2. Wait for a Mathematic maintainer to review the proposal.
 
 If we decide to implement it, a Mathematic maintainer or authorized maintenance

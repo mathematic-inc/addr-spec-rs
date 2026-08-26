@@ -2,24 +2,24 @@
 
 ## [0.10.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.9.1...v0.10.0) (2026-08-23)
 
-
 ### Features
 
 * Add `no_std` support ([#1012](https://github.com/mathematic-inc/addr-spec-rs/issues/1012)) ([7c403c5](https://github.com/mathematic-inc/addr-spec-rs/commit/7c403c5e6b359a8dc3d38740d8ec8a8285f70967))
 
 ## [0.9.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.9.0...v0.9.1) (2026-03-11)
 
-
 ### Bug Fixes
 
-* Add toolchain input to rust-toolchain action in release workflow ([#864](https://github.com/mathematic-inc/addr-spec-rs/issues/864)) ([8325fd8](https://github.com/mathematic-inc/addr-spec-rs/commit/8325fd8bf965a129b7b9c17fd2df18c16481b34f))
+* Add toolchain input to rust-toolchain action in release workflow
+  ([#864](https://github.com/mathematic-inc/addr-spec-rs/issues/864))
+  ([8325fd8](https://github.com/mathematic-inc/addr-spec-rs/commit/8325fd8bf965a129b7b9c17fd2df18c16481b34f))
 
 ## [0.9.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.4...v0.9.0) (2026-03-11)
 
-
 ### ⚠ BREAKING CHANGES
 
-* overhaul CI/CD workflows, reorganize release configs, and relicense to Apache-2.0 ([#862](https://github.com/mathematic-inc/addr-spec-rs/issues/862))
+* Overhaul CI/CD workflows, reorganize release configs, and relicense to
+  Apache-2.0 ([#862](https://github.com/mathematic-inc/addr-spec-rs/issues/862))
 
 ### Bug Fixes
 
@@ -30,10 +30,11 @@
 * **deps:** Update rust crate serde to v1.0.224 ([#680](https://github.com/mathematic-inc/addr-spec-rs/issues/680)) ([5600f4e](https://github.com/mathematic-inc/addr-spec-rs/commit/5600f4e8abf4c51b7a941c066d14b07658f9a4f9))
 * **deps:** Update rust crate serde to v1.0.225 ([#682](https://github.com/mathematic-inc/addr-spec-rs/issues/682)) ([0455745](https://github.com/mathematic-inc/addr-spec-rs/commit/0455745c4c9e6767892c26c12a420c9f526d91e7))
 * **deps:** Update rust crate serde to v1.0.226 ([#689](https://github.com/mathematic-inc/addr-spec-rs/issues/689)) ([6b2eccf](https://github.com/mathematic-inc/addr-spec-rs/commit/6b2eccf3ba504bb5c2e1fdb0f5aec4bea9b80dcd))
-* Overhaul CI/CD workflows, reorganize release configs, and relicense to Apache-2.0 ([#862](https://github.com/mathematic-inc/addr-spec-rs/issues/862)) ([b6639af](https://github.com/mathematic-inc/addr-spec-rs/commit/b6639af0b9553e6e61938afc9af908948833e7ee))
+* Overhaul CI/CD workflows, reorganize release configs, and relicense to
+  Apache-2.0 ([#862](https://github.com/mathematic-inc/addr-spec-rs/issues/862))
+  ([b6639af](https://github.com/mathematic-inc/addr-spec-rs/commit/b6639af0b9553e6e61938afc9af908948833e7ee))
 
 ## [0.8.4](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.3...v0.8.4) (2025-01-23)
-
 
 ### Bug Fixes
 
@@ -52,16 +53,16 @@
 * **deps:** Update rust crate serde to v1.0.214 ([#400](https://github.com/mathematic-inc/addr-spec-rs/issues/400)) ([83648bd](https://github.com/mathematic-inc/addr-spec-rs/commit/83648bd91533d9f768dc89d611ea43ae14b0664b))
 * **deps:** Update rust crate serde to v1.0.215 ([#426](https://github.com/mathematic-inc/addr-spec-rs/issues/426)) ([f160470](https://github.com/mathematic-inc/addr-spec-rs/commit/f16047076fbc57750dffb3a8e2db5259e484a369))
 * **deps:** Update rust crate serde to v1.0.216 ([#476](https://github.com/mathematic-inc/addr-spec-rs/issues/476)) ([018d9bc](https://github.com/mathematic-inc/addr-spec-rs/commit/018d9bc460ddeab51b179adfba5e6b8f2d7d2c5d))
-* **deps:** Update rust crate unicode-normalization to v0.1.24 ([#313](https://github.com/mathematic-inc/addr-spec-rs/issues/313)) ([6878f4c](https://github.com/mathematic-inc/addr-spec-rs/commit/6878f4c8916adf0276d4c848fd303a027903875e))
+* **deps:** Update rust crate unicode-normalization to v0.1.24
+  ([#313](https://github.com/mathematic-inc/addr-spec-rs/issues/313))
+  ([6878f4c](https://github.com/mathematic-inc/addr-spec-rs/commit/6878f4c8916adf0276d4c848fd303a027903875e))
 * Remove min_specialization ([48217f8](https://github.com/mathematic-inc/addr-spec-rs/commit/48217f861fa3ceba1daa0600b53af5f6f50c77e1))
 
 ## [0.8.3](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.2...v0.8.3) (2024-06-10)
 
-
 ### Features
 
 * Impl Error for ParseError ([71dec77](https://github.com/mathematic-inc/addr-spec-rs/commit/71dec77a423887185b70a0892e13f22763ebeaf9))
-
 
 ### Bug Fixes
 
@@ -71,7 +72,6 @@
 
 ## [0.8.2](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.1...v0.8.2) (2024-05-05)
 
-
 ### Bug Fixes
 
 * **deps:** Update cargo ([#62](https://github.com/mathematic-inc/addr-spec-rs/issues/62)) ([6bd885a](https://github.com/mathematic-inc/addr-spec-rs/commit/6bd885afe18beea4b0aa92687bb6771e97c523a2))
@@ -79,13 +79,11 @@
 
 ## [0.8.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.8.0...v0.8.1) (2024-02-11)
 
-
 ### Bug Fixes
 
 * Allow ToString impl ([#43](https://github.com/mathematic-inc/addr-spec-rs/issues/43)) ([75ba0e7](https://github.com/mathematic-inc/addr-spec-rs/commit/75ba0e7527b3934a1e81def5d9075b70f568e914))
 
 ## [0.8.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.7.1...v0.8.0) (2024-02-05)
-
 
 ### Features
 
@@ -93,11 +91,9 @@
 
 ## [0.7.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.7.0...v0.7.1) (2023-02-06)
 
-
 ### Bug Fixes
 
 * Check directory before generating ICU code ([49dee0d](https://github.com/mathematic-inc/addr-spec-rs/commit/49dee0d6f9b28a105983ac2f7250f3470be99683))
-
 
 ### Performance Improvements
 
@@ -107,11 +103,9 @@
 
 ## [0.7.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.6.1...v0.7.0) (2023-02-04)
 
-
 ### Features
 
 * Support for `email_address` ([#30](https://github.com/mathematic-inc/addr-spec-rs/issues/30)) ([fb075d5](https://github.com/mathematic-inc/addr-spec-rs/commit/fb075d5ffdcb9b28457cf20a7d881451eff4c7cd))
-
 
 ### Performance Improvements
 
@@ -119,13 +113,11 @@
 
 ## [0.6.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.6.0...v0.6.1) (2023-01-28)
 
-
 ### Performance Improvements
 
 * Use memchr ([#8](https://github.com/mathematic-inc/addr-spec-rs/issues/8)) ([2337137](https://github.com/mathematic-inc/addr-spec-rs/commit/2337137e5e5aefe10706d374d888fa08e4e4a243))
 
 ## [0.6.0](https://github.com/mathematic-inc/addr-spec-rs/commits/v0.6.0) (2023-01-24)
-
 
 ### Features
 
