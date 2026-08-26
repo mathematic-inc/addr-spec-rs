@@ -79,4 +79,14 @@ of `Into<EmailAddress>`, i.e. `AddrSpec -> EmailAddress -> AddrSpec` will always
 yield the same `AddrSpec`, but `EmailAddress -> AddrSpec -> EmailAddress` may
 not yield the same `EmailAddress`.
 
+## Contributing
+
+Start a [Discussion](../../discussions/new) before proposing a code change. A
+Mathematic maintainer will review the proposal there. If we decide to implement
+it, a maintainer or authorized maintenance agent will open the pull request.
+
+GitHub restricts pull request creation to Mathematic maintainers and repository
+collaborators with write, maintain, or admin access, plus authorized maintenance
+agents. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full process.
+
 > This project is free and open-source work by a 501(c)(3) non-profit. If you find it useful, please consider [donating](https://github.com/sponsors/mathematic-inc).
