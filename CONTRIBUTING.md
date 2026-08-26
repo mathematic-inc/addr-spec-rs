@@ -10,11 +10,11 @@ reviewed, so we agree on changes before writing code.
    proposed change.
 2. Wait for a Mathematic maintainer to review the proposal.
 
-If we decide to implement it, a Mathematic maintainer or agent will open the
-pull request.
+If we decide to implement it, a Mathematic maintainer or authorized maintenance
+agent will open the pull request.
 
 ## Pull request policy
 
-Only Mathematic organization members, repository collaborators, and approved
-maintenance bots (`renovate[bot]` and `dependabot[bot]`) may open pull requests.
-We automatically close pull requests from everyone else.
+GitHub restricts pull request creation to Mathematic maintainers and repository
+collaborators with write, maintain, or admin access, plus authorized maintenance
+agents. Other contributors must use Discussions to propose changes.

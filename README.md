@@ -83,10 +83,10 @@ not yield the same `EmailAddress`.
 
 Start a [Discussion](../../discussions/new) before proposing a code change. A
 Mathematic maintainer will review the proposal there. If we decide to implement
-it, a maintainer or agent will open the pull request.
+it, a maintainer or authorized maintenance agent will open the pull request.
 
-Only Mathematic organization members, repository collaborators, and approved
-maintenance bots may open pull requests. We automatically close other pull
-requests. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full process.
+GitHub restricts pull request creation to Mathematic maintainers and repository
+collaborators with write, maintain, or admin access, plus authorized maintenance
+agents. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full process.
 
 > This project is free and open-source work by a 501(c)(3) non-profit. If you find it useful, please consider [donating](https://github.com/sponsors/mathematic-inc).
