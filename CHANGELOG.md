@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.10.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.0...v0.10.1) (2026-08-27)
+
+### Bug Fixes
+
+* Use release-compatible Cargo dependency table ([f6b7011](https://github.com/mathematic-inc/addr-spec-rs/commit/f6b7011c570fc8b18c9f9d5b5cb1055903e2e8d1))
+
 ## [0.10.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.9.1...v0.10.0) (2026-08-23)
 
 ### Features
