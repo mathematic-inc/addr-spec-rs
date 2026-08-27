@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.2](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.1...v0.10.2) (2026-08-27)
+
+
+### Bug Fixes
+
+* **ci:** Test stable feature set ([#1025](https://github.com/mathematic-inc/addr-spec-rs/issues/1025)) ([edb404a](https://github.com/mathematic-inc/addr-spec-rs/commit/edb404a820f507e1d248daf3506e59c3eab571d4))
+
 ## [0.10.1](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.0...v0.10.1) (2026-08-27)
 
 ### Bug Fixes
