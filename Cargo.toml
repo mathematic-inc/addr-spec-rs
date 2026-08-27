@@ -14,15 +14,12 @@ keywords = ["address", "email", "parser", "rfc2822", "rfc5322"]
 unicode-normalization = { version = "0.1.25", default-features = false, optional = true }
 
 email_address = { version = "0.2.9", default-features = false, optional = true }
-serde = {
-  version = "1.0.229",
-  default-features = false,
-  features = [
-    "alloc",
-    "derive",
-  ],
-  optional = true
-}
+
+[dependencies.serde]
+version = "1.0.229"
+default-features = false
+features = ["alloc", "derive"]
+optional = true
 
 [dev-dependencies]
 regex = "1.13.1"
