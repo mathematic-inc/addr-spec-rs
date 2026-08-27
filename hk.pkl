@@ -194,6 +194,13 @@ local checks = new Mapping<String, Step> {
     fix = null
     profiles = slow
   }
+  ["cargo-test-stable-features"] {
+    glob = rustFiles
+    workspace_indicator = null
+    check =
+      "cargo test --locked --no-default-features --features comments,email_address,literals,normalization,serde,white-spaces"
+    profiles = slow
+  }
   ["cargo-clippy"] = (Builtins.cargo_clippy) {
     glob = rustFiles
     workspace_indicator = null

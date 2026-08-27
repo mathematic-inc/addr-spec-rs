@@ -28,8 +28,10 @@ jobs:
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           cache-on-failure: true
-      - name: Test
-        run: cargo test
+      - name: Test default features
+        run: cargo test --locked
+      - name: Test stable optional features
+        run: cargo test --locked --no-default-features --features comments,email_address,literals,normalization,serde,white-spaces
       - name: Test no_std build
         run: |
           rustup target add thumbv6m-none-eabi
