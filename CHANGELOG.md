@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.3](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.2...v0.10.3) (2026-08-27)
+
+
+### Bug Fixes
+
+* **msrv:** Declare Rust 1.81 support ([2caebe1](https://github.com/mathematic-inc/addr-spec-rs/commit/2caebe1e7d4e4e9abe0cf9cbf23c2d8471db782a))
+
 ## [0.10.2](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.1...v0.10.2) (2026-08-27)
 
 
