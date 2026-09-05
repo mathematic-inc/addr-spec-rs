@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.4](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.3...v0.10.4) (2026-09-05)
+
+
+### Bug Fixes
+
+* **ci:** Harden release workflows and repository checks ([#1031](https://github.com/mathematic-inc/addr-spec-rs/issues/1031)) ([bcef38b](https://github.com/mathematic-inc/addr-spec-rs/commit/bcef38b48b70d25ab0ab8342c0aa844e13ac44b2))
+
 ## [0.10.3](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.2...v0.10.3) (2026-08-27)
 
 
