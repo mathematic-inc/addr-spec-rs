@@ -11,6 +11,7 @@ allow = [
   "MIT-0",
   "MIT",
   "MS-PL",
+  "Unicode-3.0",
   "Unicode-DFS-2016",
   "Unlicense",
   "Zlib",
