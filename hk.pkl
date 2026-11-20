@@ -18,8 +18,6 @@ steps {
     check = "cargo test --locked --no-default-features --features \(stableFeatures)"
     profiles = slow
   }
-  // The organization's step sets `workspace_indicator = null`, so `{{workspace}}` has no value.
-  ["cargo-deny"] { dir = "{{root}}" }
   ["cargo-clippy"] {
     check =
       "cargo clippy --workspace --no-default-features --features \(stableFeatures) --all-targets -- -D warnings"
