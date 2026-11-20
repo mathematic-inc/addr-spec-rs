@@ -18,10 +18,11 @@ pub(crate) use memcpsn;
 macro_rules! escape {
     ($expression:expr, $escape_char:literal, $(|)? $( $pattern:pat_param )|+ $( if $guard: expr )? $(,)?) => {
         {
-            let cap = $expression.len() << 1;
+            let input: &str = $expression;
+            let cap = input.len() << 1;
             unsafe {
                 let buffer = ::alloc::alloc::alloc(::core::alloc::Layout::array::<u8>(cap).unwrap());
-                let mut src = $expression.as_bytes();
+                let mut src = input.as_bytes();
                 let mut dst = buffer;
                 while let Some(end) = $crate::ascii::memcpsn!(src, $escape_char | $( $pattern )|+ $( if $guard )?) {
                     dst.copy_from_nonoverlapping(src.as_ptr(), end);
@@ -34,7 +35,7 @@ macro_rules! escape {
                     dst.copy_from_nonoverlapping(src.as_ptr(), src.len());
                     dst = dst.add(src.len());
                 }
-                ::alloc::string::String::from_raw_parts(buffer, dst.offset_from(buffer) as usize, cap)
+                ::alloc::string::String::from_raw_parts(buffer, dst.offset_from(buffer).unsigned_abs(), cap)
             }
         }
     };

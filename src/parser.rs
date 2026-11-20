@@ -4,15 +4,15 @@ use core::{error::Error, fmt, mem::ManuallyDrop, str::Chars};
 use super::unicode;
 use super::AddrSpec;
 
-pub const fn is_ascii_control_and_not_htab(chr: char) -> bool {
+pub(crate) const fn is_ascii_control_and_not_htab(chr: char) -> bool {
     chr.is_ascii_control() && chr != '\t'
 }
 
-pub const fn is_ascii_control_or_space(chr: char) -> bool {
+pub(crate) const fn is_ascii_control_or_space(chr: char) -> bool {
     chr.is_ascii_control() || chr == ' '
 }
 
-pub const fn is_not_atext(chr: char) -> bool {
+pub(crate) const fn is_not_atext(chr: char) -> bool {
     is_ascii_control_or_space(chr)
         || matches!(
             chr,
@@ -20,7 +20,7 @@ pub const fn is_not_atext(chr: char) -> bool {
         )
 }
 
-pub const fn is_not_dtext(chr: char) -> bool {
+pub(crate) const fn is_not_dtext(chr: char) -> bool {
     is_ascii_control_or_space(chr) || matches!(chr, '[' | ']' | '\\')
 }
 
@@ -31,13 +31,15 @@ pub struct ParseError(pub(super) &'static str, pub(super) usize);
 impl ParseError {
     /// Returns a static error message.
     #[inline]
-    pub fn message(&self) -> &'static str {
+    #[must_use]
+    pub const fn message(&self) -> &'static str {
         self.0
     }
 
     /// Returns the byte index where the error occurred.
     #[inline]
-    pub fn index(&self) -> usize {
+    #[must_use]
+    pub const fn index(&self) -> usize {
         self.1
     }
 }
@@ -55,21 +57,21 @@ impl fmt::Display for ParseError {
 
 impl Error for ParseError {}
 
-pub struct Parser<'a> {
+pub(crate) struct Parser<'a> {
     input: &'a str,
     iterator: Chars<'a>,
 }
 
 impl<'a> Parser<'a> {
     #[inline]
-    pub fn new(input: &'a str) -> Parser<'a> {
+    pub(crate) fn new(input: &'a str) -> Self {
         Parser {
             input,
             iterator: input.chars(),
         }
     }
 
-    pub fn parse(mut self) -> Result<AddrSpec, ParseError> {
+    pub(crate) fn parse(mut self) -> Result<AddrSpec, ParseError> {
         #[cfg(feature = "white-spaces")]
         self.parse_cfws()?;
         let local_part = self.parse_local_part()?;
@@ -201,7 +203,7 @@ impl<'a> Parser<'a> {
         )?))
     }
 
-    pub fn parse_dot_atom(
+    pub(crate) fn parse_dot_atom(
         &mut self,
         empty_label_error_text: &'static str,
     ) -> Result<&str, ParseError> {
@@ -214,7 +216,7 @@ impl<'a> Parser<'a> {
             .find(|label| label.is_empty())
             .map(|label| label.as_ptr() as usize - dot_atom.as_ptr() as usize)
         {
-            return Err(self.error(empty_label_error_text, offset as isize));
+            return Err(self.error(empty_label_error_text, isize::try_from(offset).unwrap()));
         }
 
         self.iterator = input[size..].chars();
@@ -307,7 +309,7 @@ impl<'a> Parser<'a> {
     }
 
     #[inline]
-    pub fn check_end(self, message: &'static str) -> Result<(), ParseError> {
+    pub(crate) fn check_end(self, message: &'static str) -> Result<(), ParseError> {
         if self.iterator.as_str().is_empty() {
             return Ok(());
         }
@@ -324,14 +326,14 @@ impl<'a> Parser<'a> {
     }
 }
 
-pub struct FixedVec<T> {
+pub(crate) struct FixedVec<T> {
     ptr: *mut T,
     len: usize,
     cap: usize,
 }
 
 impl<T> FixedVec<T> {
-    pub unsafe fn new(cap: usize) -> Self {
+    pub(crate) unsafe fn new(cap: usize) -> Self {
         Self {
             ptr: unsafe {
                 alloc::alloc::alloc(alloc::alloc::Layout::array::<T>(cap).unwrap()).cast()
@@ -352,7 +354,7 @@ impl<T> FixedVec<T> {
 
 impl FixedVec<u8> {
     unsafe fn extend_char_unchecked(&mut self, chr: char) {
-        self.extend_unchecked(chr.encode_utf8(&mut [0; 4]).as_bytes())
+        self.extend_unchecked(chr.encode_utf8(&mut [0; 4]).as_bytes());
     }
 }
 
@@ -362,7 +364,7 @@ impl<T> Drop for FixedVec<T> {
             alloc::alloc::dealloc(
                 self.ptr.cast(),
                 alloc::alloc::Layout::array::<T>(self.cap).unwrap(),
-            )
+            );
         }
     }
 }
@@ -370,7 +372,7 @@ impl<T> Drop for FixedVec<T> {
 impl From<FixedVec<u8>> for String {
     fn from(val: FixedVec<u8>) -> Self {
         let val = ManuallyDrop::new(val);
-        unsafe { String::from_raw_parts(val.ptr, val.len, val.cap) }
+        unsafe { Self::from_raw_parts(val.ptr, val.len, val.cap) }
     }
 }
 
@@ -382,7 +384,7 @@ mod tests {
 
         #[test]
         fn test_parse_local_part() {
-            assert_eq!(&Parser::new("test").parse_local_part().unwrap(), "test")
+            assert_eq!(&Parser::new("test").parse_local_part().unwrap(), "test");
         }
 
         #[test]
@@ -390,7 +392,7 @@ mod tests {
             assert_eq!(
                 Parser::new("").parse_local_part().unwrap_err(),
                 ParseError("empty label in local part", 0)
-            )
+            );
         }
 
         #[test]
@@ -398,7 +400,7 @@ mod tests {
             assert_eq!(
                 Parser::new(".test").parse_local_part().unwrap_err(),
                 ParseError("empty label in local part", 0)
-            )
+            );
         }
 
         #[test]
@@ -406,7 +408,7 @@ mod tests {
             assert_eq!(
                 Parser::new("te..st").parse_local_part().unwrap_err(),
                 ParseError("empty label in local part", 3)
-            )
+            );
         }
 
         #[test]
@@ -414,7 +416,7 @@ mod tests {
             assert_eq!(
                 Parser::new("test.").parse_local_part().unwrap_err(),
                 ParseError("empty label in local part", 5)
-            )
+            );
         }
 
         #[test]
@@ -422,7 +424,7 @@ mod tests {
             assert_eq!(
                 Parser::new("test").parse_domain().unwrap(),
                 ("test".to_string(), false)
-            )
+            );
         }
 
         #[test]
@@ -430,7 +432,7 @@ mod tests {
             assert_eq!(
                 Parser::new("").parse_domain().unwrap_err(),
                 ParseError("empty label in domain", 0)
-            )
+            );
         }
 
         #[test]
@@ -438,7 +440,7 @@ mod tests {
             assert_eq!(
                 Parser::new(".test").parse_domain().unwrap_err(),
                 ParseError("empty label in domain", 0)
-            )
+            );
         }
 
         #[test]
@@ -446,7 +448,7 @@ mod tests {
             assert_eq!(
                 Parser::new("te..st").parse_domain().unwrap_err(),
                 ParseError("empty label in domain", 3)
-            )
+            );
         }
 
         #[test]
@@ -454,21 +456,21 @@ mod tests {
             assert_eq!(
                 Parser::new("test.").parse_domain().unwrap_err(),
                 ParseError("empty label in domain", 5)
-            )
+            );
         }
     }
 
     #[cfg(feature = "literals")]
     mod literals {
         use super::super::{ParseError, Parser};
-        use alloc::string::ToString;
+        use alloc::string::{String, ToString};
 
         #[test]
         fn test_parse_literal_domain() {
             assert_eq!(
                 Parser::new("[test]").parse_domain().unwrap(),
                 ("test".to_string(), true)
-            )
+            );
         }
 
         #[test]
@@ -476,15 +478,15 @@ mod tests {
             assert_eq!(
                 Parser::new("[test").parse_domain().unwrap_err(),
                 ParseError("expected ']' for domain literal", 5)
-            )
+            );
         }
 
         #[test]
         fn test_parse_empty_literal_domain() {
             assert_eq!(
                 Parser::new("[]").parse_domain().unwrap(),
-                ("".to_string(), true)
-            )
+                (String::new(), true)
+            );
         }
 
         #[test]
@@ -492,7 +494,7 @@ mod tests {
             assert_eq!(
                 Parser::new("[").parse_domain().unwrap_err(),
                 ParseError("expected ']' for domain literal", 1)
-            )
+            );
         }
 
         #[cfg(not(feature = "white-spaces"))]
@@ -501,7 +503,7 @@ mod tests {
             assert_eq!(
                 Parser::new("[te st]").parse_domain().unwrap_err(),
                 ParseError("expected ']' for domain literal", 3)
-            )
+            );
         }
 
         #[cfg(feature = "white-spaces")]
@@ -510,7 +512,7 @@ mod tests {
             assert_eq!(
                 Parser::new("[te st]").parse_domain().unwrap(),
                 ("test".to_string(), true)
-            )
+            );
         }
 
         #[cfg(feature = "white-spaces")]
@@ -519,7 +521,7 @@ mod tests {
             assert_eq!(
                 Parser::new("[\r\ntest]").parse_domain().unwrap(),
                 ("test".to_string(), true)
-            )
+            );
         }
 
         #[cfg(feature = "white-spaces")]
@@ -528,7 +530,7 @@ mod tests {
             assert_eq!(
                 Parser::new("[te\r\nst]").parse_domain().unwrap(),
                 ("test".to_string(), true)
-            )
+            );
         }
 
         #[cfg(feature = "white-spaces")]
@@ -537,7 +539,7 @@ mod tests {
             assert_eq!(
                 Parser::new("[test\r\n]").parse_domain().unwrap(),
                 ("test".to_string(), true)
-            )
+            );
         }
     }
 }

@@ -1,7 +1,7 @@
 use alloc::string::String;
 
 #[cfg(feature = "normalization")]
-pub fn normalize<S>(value: S) -> String
+pub(crate) fn normalize<S>(value: S) -> String
 where
     S: AsRef<str>,
 {
@@ -10,7 +10,7 @@ where
 }
 
 #[cfg(not(feature = "normalization"))]
-pub fn normalize<S>(value: S) -> String
+pub(crate) fn normalize<S>(value: S) -> String
 where
     S: Into<String>,
 {
