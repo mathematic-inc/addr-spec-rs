@@ -1,4 +1,4 @@
-//! Turns on the `nightly` feature when the compiler is a nightly one.
+//! Enables the `nightly` feature on a nightly compiler.
 
 use rustc_version::{version_meta, Channel};
 

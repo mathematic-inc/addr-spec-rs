@@ -3,7 +3,7 @@ amends ".hk/org.pkl"
 local rustFiles = List("Cargo.toml", "Cargo.lock", "**/Cargo.toml", "**/*.rs")
 local slow = List("slow")
 
-// The `nightly` feature needs a nightly compiler, so no step here uses `--all-features`.
+// `--all-features` would enable `nightly`, which needs a nightly compiler.
 local stableFeatures = "comments,email_address,literals,normalization,serde,white-spaces"
 
 steps {
