@@ -72,12 +72,15 @@ distinguish equivalent addresses.
 It's highly recommended to use only `addr_spec` in production since `addr_spec`
 provides guarantees on uniqueness for storage and lookup as well as other
 special perks (position-based errors, SMTP-style `Display` writer, etc.). If
-this is not feasible, we provide `Into<EmailAddress>` and `Into<AddrSpec>` for
-those coming from `email_address`. Note that `Into<AddrSpec>` is only a [right
+this is not feasible, we provide `Into<EmailAddress>` and `TryInto<AddrSpec>`
+for those coming from `email_address`. Note that `TryInto<AddrSpec>` is only a
+[right
 inverse](https://en.wikipedia.org/wiki/Inverse_function#Left_and_right_inverses)
 of `Into<EmailAddress>`, i.e. `AddrSpec -> EmailAddress -> AddrSpec` will always
 yield the same `AddrSpec`, but `EmailAddress -> AddrSpec -> EmailAddress` may
-not yield the same `EmailAddress`.
+not yield the same `EmailAddress`. `TryInto<AddrSpec>` returns an error for an
+`EmailAddress` that this crate rejects, such as one with a literal domain when
+the `literals` feature is off.
 
 ## Contributing
 

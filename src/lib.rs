@@ -3,7 +3,6 @@
 #![no_std]
 
 extern crate alloc;
-extern crate core;
 
 mod ascii;
 mod parser;
@@ -132,6 +131,11 @@ impl AddrSpec {
     ///     "test@example.com"
     /// );
     /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns a [`ParseError`] if `address` is not a valid address
+    /// specification.
     #[inline]
     pub fn normalize<Address>(address: Address) -> Result<String, ParseError>
     where
@@ -142,6 +146,10 @@ impl AddrSpec {
 
     /// Creates a new address specification. This will validate the local part
     /// and domain and perform NFC-normalization.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [`ParseError`] if the local part or the domain is not valid.
     pub fn new<LocalPart, Domain>(local_part: LocalPart, domain: Domain) -> Result<Self, ParseError>
     where
         LocalPart: AsRef<str>,
@@ -152,6 +160,10 @@ impl AddrSpec {
 
     /// Creates a new address specification with a literal domain. This will
     /// validate the local part and domain and perform NFC-normalization.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [`ParseError`] if the local part or the domain is not valid.
     #[cfg(feature = "literals")]
     pub fn with_literal<LocalPart, Domain>(
         local_part: LocalPart,
@@ -237,7 +249,7 @@ impl AddrSpec {
     }
 
     #[allow(unused_variables)]
-    unsafe fn new_unchecked_impl(local_part: String, domain: String, literal: bool) -> Self {
+    const unsafe fn new_unchecked_impl(local_part: String, domain: String, literal: bool) -> Self {
         Self {
             local_part,
             domain,
@@ -248,18 +260,21 @@ impl AddrSpec {
 
     /// Returns the local part of the address.
     #[inline]
+    #[must_use]
     pub fn local_part(&self) -> &str {
         &self.local_part
     }
 
     /// Returns the domain of the address.
     #[inline]
+    #[must_use]
     pub fn domain(&self) -> &str {
         &self.domain
     }
 
     /// Returns whether the local part is quoted.
     #[inline]
+    #[must_use]
     pub fn is_quoted(&self) -> bool {
         self.local_part()
             .split('.')
@@ -268,7 +283,8 @@ impl AddrSpec {
 
     /// Returns whether the domain is literal.
     #[inline]
-    pub fn is_literal(&self) -> bool {
+    #[must_use]
+    pub const fn is_literal(&self) -> bool {
         #[cfg(feature = "literals")]
         return self.literal;
         #[cfg(not(feature = "literals"))]
@@ -277,6 +293,7 @@ impl AddrSpec {
 
     /// Returns the local part and domain of the address.
     #[inline]
+    #[must_use]
     pub fn into_parts(self) -> (String, String) {
         (self.local_part, self.domain)
     }
@@ -286,6 +303,7 @@ impl AddrSpec {
     /// This is useful if you need to transport the address specification over
     /// line-based protocols such as SMTP and need to ensure that the local part
     /// and domain fit on a single line or require folding white-spaces.
+    #[must_use]
     pub fn into_serialized_parts(self) -> (String, String) {
         // Note literals will be optimized away by the compiler if the feature
         // is disabled.
@@ -306,28 +324,28 @@ impl AddrSpec {
 
 impl fmt::Display for AddrSpec {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if !self.is_quoted() {
-            formatter.write_str(self.local_part())?;
-        } else {
+        if self.is_quoted() {
             formatter.write_char('"')?;
             for chr in quote(self.local_part()).chars() {
                 formatter.write_char(chr)?;
             }
             formatter.write_char('"')?;
+        } else {
+            formatter.write_str(self.local_part())?;
         }
 
         formatter.write_char('@')?;
 
         // Note literals will be optimized away by the compiler if the feature
         // is disabled.
-        if !self.is_literal() {
-            formatter.write_str(self.domain())?;
-        } else {
+        if self.is_literal() {
             formatter.write_char('[')?;
             for chr in self.domain().chars() {
                 formatter.write_char(chr)?;
             }
             formatter.write_char(']')?;
+        } else {
+            formatter.write_str(self.domain())?;
         }
 
         Ok(())
@@ -374,10 +392,12 @@ impl<'de> Deserialize<'de> for AddrSpec {
 use email_address::EmailAddress;
 
 #[cfg(feature = "email_address")]
-impl From<EmailAddress> for AddrSpec {
+impl TryFrom<EmailAddress> for AddrSpec {
+    type Error = ParseError;
+
     #[inline]
-    fn from(val: EmailAddress) -> Self {
-        AddrSpec::from_str(val.as_str()).unwrap()
+    fn try_from(val: EmailAddress) -> Result<Self, Self::Error> {
+        Self::from_str(val.as_str())
     }
 }
 
@@ -385,13 +405,21 @@ impl From<EmailAddress> for AddrSpec {
 impl From<AddrSpec> for EmailAddress {
     #[inline]
     fn from(val: AddrSpec) -> Self {
-        EmailAddress::new_unchecked(val.to_string())
+        Self::new_unchecked(val.to_string())
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[cfg(feature = "email_address")]
+    #[test]
+    fn test_addr_spec_round_trips_through_email_address() {
+        let addr_spec = AddrSpec::from_str(r#""jdoe"@machine.example"#).unwrap();
+        let email_address = EmailAddress::from(addr_spec.clone());
+        assert_eq!(AddrSpec::try_from(email_address).unwrap(), addr_spec);
+    }
 
     #[test]
     fn test_addr_spec_from_str() {
