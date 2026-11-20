@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.11.0](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.5...v0.11.0) (2026-11-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* `AddrSpec` implements `TryFrom<EmailAddress>`, not `From<EmailAddress>`. Use `AddrSpec::try_from(email_address)` and handle the `ParseError`.
+
+### Miscellaneous Chores
+
+* Use the ToolConfig policy of mathematic-inc ([#1044](https://github.com/mathematic-inc/addr-spec-rs/issues/1044)) ([630b6f6](https://github.com/mathematic-inc/addr-spec-rs/commit/630b6f6ed04aff3e9f0e27d92ae6b05021ca625f))
+
 ## [0.10.5](https://github.com/mathematic-inc/addr-spec-rs/compare/v0.10.4...v0.10.5) (2026-11-07)
 
 
