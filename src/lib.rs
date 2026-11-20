@@ -392,10 +392,12 @@ impl<'de> Deserialize<'de> for AddrSpec {
 use email_address::EmailAddress;
 
 #[cfg(feature = "email_address")]
-impl From<EmailAddress> for AddrSpec {
+impl TryFrom<EmailAddress> for AddrSpec {
+    type Error = ParseError;
+
     #[inline]
-    fn from(val: EmailAddress) -> Self {
-        Self::from_str(val.as_str()).unwrap()
+    fn try_from(val: EmailAddress) -> Result<Self, Self::Error> {
+        Self::from_str(val.as_str())
     }
 }
 
@@ -410,6 +412,14 @@ impl From<AddrSpec> for EmailAddress {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[cfg(feature = "email_address")]
+    #[test]
+    fn test_addr_spec_round_trips_through_email_address() {
+        let addr_spec = AddrSpec::from_str(r#""jdoe"@machine.example"#).unwrap();
+        let email_address = EmailAddress::from(addr_spec.clone());
+        assert_eq!(AddrSpec::try_from(email_address).unwrap(), addr_spec);
+    }
 
     #[test]
     fn test_addr_spec_from_str() {
